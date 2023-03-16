@@ -1,0 +1,96 @@
+.text-warning-700, .text-danger-800 {
+    font-weight: bolder;
+}
+
+.id {
+    width: 20px;
+}
+
+td.image {
+    width: 10%;
+}
+
+td.image img,
+.edit-image-preview img,
+.main-image img {
+    width: 100%;
+    border: 2px solid grey;
+}
+
+td.value .percents {
+    padding: 2px 3px;
+    border-radius: 2px;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: red;
+}
+
+.table-items td.edit,
+.table-items td.delete {
+    width: 60px;
+    text-align: center;
+}
+
+.table-items td.delete > span {
+    cursor: pointer;
+}
+
+.form-horizontal .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.form-group.name input,
+.form-group.name select {
+    height: 37px;
+    font-size: 17px;
+}
+
+label {
+    font-weight: bold;
+    color: grey;
+}
+
+label sup {
+    color: red;
+}
+
+input[type=number] {
+    height: 50px;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    color: #337ab7;
+}
+textarea {
+    width: 100% !important;
+    height: 200px !important;
+    resize: vertical;
+}
+
+.has-error .cke_editor_text {
+    border-color: #D84315;
+}
+
+.modal-body {
+    background-color: #f1f1f1;
+    border: 1px solid #eaeaea;
+    margin-bottom: 20px;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: #00a512;
+    border-color: #00a512;
+}
+
+.btn-primary {
+    background-color: #00a512;
+    border-color: #43A047;
+}
