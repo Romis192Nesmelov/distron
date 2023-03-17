@@ -21,6 +21,11 @@ class StaticController extends Controller
         return $this->showView('home2');
     }
 
+    public function index3()
+    {
+        return $this->showView('home3');
+    }
+
 //    public function changeLang(Request $request)
 //    {
 //        $this->validate($request, ['lang' => 'required|in:en,ru']);

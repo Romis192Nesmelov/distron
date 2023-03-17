@@ -17,6 +17,7 @@ use App\Http\Controllers\AdminController;
 
 Route::get('/v1', [StaticController::class, 'index1'])->name('index1');
 Route::get('/v2', [StaticController::class, 'index2'])->name('index2');
+Route::get('/v3', [StaticController::class, 'index3'])->name('index3');
 //Route::get('/change-lang', [StaticController::class, 'changeLang'])->name('change_lang');
 
 //Route::get('/login', function () {

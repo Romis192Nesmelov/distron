@@ -5,9 +5,9 @@
     <div id="skew-collage-cover">
         <div id="skew-collage">
             @for($c=0;$c<4;$c++)
-                <img class="cell cell{{ $c+1 }}" src="{{ asset('images/collage/mc_cell'.($c+1).'.png') }}" />
+                <img class="cell cell{{ $c+1 }}" src="{{ asset('images/v2/collage/mc_cell'.($c+1).'.png') }}" />
             @endfor
-            <img class="logo" src="{{ asset('images/logo_glow.png') }}" />
+            <img class="logo" src="{{ asset('images/v2/logo_glow.png') }}" />
         </div>
     </div>
 
@@ -20,7 +20,7 @@
     <x-section class="color color3" wow_delay=".1" data-scroll-destination="{{ $menu['about_company']['scroll'] }}">
         <x-row class="d-flex align-items-center">
             <div class="col-md-3 col-sm-6 col-xs-12 image cir-image">
-                <img src="{{ asset('images/cir_img.jpg') }}" />
+                <img src="{{ asset('images/v2/cir_img.jpg') }}" />
             </div>
             <div class="col-md-9 col-sm-6 col-xs-12 px-5">
                 <h1>{{ $menu['about_company']['name'] }}</h1>
@@ -47,7 +47,7 @@
                 <p>{{ $content[1]->text }}</p>
             </div>
             <div class="col-md-3 col-sm-4 col-xs-12 image">
-                <img src="{{ asset('images/battery1.png') }}" />
+                <img src="{{ asset('images/v2/battery1.png') }}" />
             </div>
         </x-row>
     </x-section>
@@ -59,7 +59,7 @@
                 <p>{{ $content[2]->text }}</p>
             </div>
             <div class="col-md-6 col-sm-6 col-xs-12 image">
-                <img src="{{ asset('images/batteries.png') }}" />
+                <img src="{{ asset('images/v2/batteries.png') }}" />
             </div>
         </x-row>
     </x-section>
@@ -87,4 +87,6 @@
         </x-row>
     </x-section>
 
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/v2.css') }}" />
+    <script type="text/javascript" src="{{ asset('js/v2.js') }}"></script>
 @endsection

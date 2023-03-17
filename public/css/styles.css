@@ -123,89 +123,6 @@ hr {
     justify-content: center;
 }
 
-.section.color1 {
-    background-image: url("../images/color_section1.jpg");
-}
-
-.section.color2 {
-    padding-top: 70px;
-    padding-bottom: 70px;
-    background-image: url("../images/color_section2.jpg");
-}
-
-.section.color3 {
-    padding-top: 30px;
-    padding-bottom: 30px;
-    background-image: url("../images/color_section3.jpg");
-}
-
-.rounded-plate {
-    padding: 30px;
-    background-color: whitesmoke;
-    border-radius: 20px;
-    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3);
-}
-
-#main-collage {
-    width: 100%;
-    height: 600px;
-    background: url("../images/waves.jpg") left top no-repeat;
-}
-
-#skew-collage {
-    width: 100%;
-    top: 50px;
-    position: absolute;
-}
-
-#skew-collage .cell {
-    position: absolute;
-    height: 100%;
-    float: left;
-    display: none;
-    z-index: 990;
-}
-
-#skew-collage .logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
-    z-index: 995;
-    opacity: 0;
-}
-
-#main-image {
-    width: 600px;
-    right: 100px;
-    top: 120px;
-    position: absolute;
-}
-
-#main-nav {
-    position: absolute;
-    z-index: 999;
-}
-
-#skew-nav {
-    width: 100%;
-    position: fixed;
-    top: 0;
-    z-index: 999;
-    background-color: #009671;
-    border-bottom: 1px solid white;
-}
-
-#main-nav.top-fix {
-    width: 100%;
-    height: 51px;
-    background: url("../images/waves.jpg") left top no-repeat;
-    position: fixed;
-    top: -51px;
-    z-index: 999;
-    border-bottom: 1px solid white;
-}
-
 .navbar-toggler {
     border: 1px solid white;
     color: black;
@@ -229,34 +146,6 @@ hr {
 
 .dropdown-item {
     font-size: 13px;
-}
-
-#main-logo {
-    position: absolute;
-    top: 80px;
-    left: 50px;
-    /*display: flex;*/
-    /*align-items: center;*/
-}
-
-#main-logo img.logo {
-    width: 350px;
-    /*-webkit-filter: drop-shadow( 0px 0px 7px #FFFFFF);*/
-    /*filter: drop-shadow( 0rem 0px 7px #FFFFFF);*/
-}
-
-#main-logo h1 {
-    color: white;
-    /*margin-top: 15px;*/
-    font-size: 1.4em;
-    padding-left: 100px;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-#main-logo .btn.btn-primary {
-    margin-left: 100px;
-    margin-top: 10px;
 }
 
 .icon > img {
@@ -313,40 +202,7 @@ input:focus {
     vertical-align: top;
 }
 
-.site-footer {
-    padding: 4em 0;
-    background-color: #c9ccd4;
-}
-
-.site-footer p,
-.site-footer .nav-link {
-    color: gray !important;
-}
-
-.site-footer ul li {
-    margin-bottom: 10px;
-}
-
-.site-footer a:hover {
-    color: #43ab92 !important;
-}
-
-.site-footer a {
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-}
-
-.site-footer .footer-heading {
-    font-size: 16px;
-    color: #000;
-}
-
 @media (max-width: 1300px)  {
-    #main-image {
-        width: 550px;
-        right: 15px;
-    }
-
     .section.color {
         background-size: 120% 100%;
     }
@@ -375,14 +231,6 @@ input:focus {
 }
 
 @media (max-width: 992px)  {
-    #main-nav-bar {
-        background: url("../images/white_tansp_bg.png") !important;
-        padding: 20px;
-        border: 1px solid white;
-        border-radius: 15px;
-        z-index: 999;
-    }
-
     .nav-link {
         color: #009671 !important;
         font-weight: bold;
@@ -405,44 +253,6 @@ input:focus {
 
     .portfolio-item {
         display: table;
-    }
-}
-
-@media (max-width: 750px)  {
-    #main-logo img.logo {
-        width: 200px;
-    }
-}
-
-@media (max-width: 680px)  {
-    #main-logo {
-        top: 10px;
-        left: auto;
-        right: 10px;
-    }
-
-    #main-logo img.logo {
-        width: 100px;
-    }
-}
-
-@media (max-width: 575px)  {
-    #skew-collage .cell2,
-    #skew-collage .cell3 {
-        display: none !important;
-    }
-}
-
-@media (max-width: 550px)  {
-    #main-collage {
-        height: 550px;
-    }
-
-    #main-image {
-        width: 95%;
-        top: 60px;
-        left: 50%;
-        transform: translateX(-50%);
     }
 }
 
