@@ -32,39 +32,40 @@ $(document).ready(function() {
         'display': 'block'
     });
 
-    mainCollageCell1.animate({'left':0},'slow',function () {
-        $(this).css({
-            'left': 0,
-            'right': 'auto'
-        });
-        mainCollageCell2.animate({'left':mainCollageCell1.width() - (mainCollageCell1.width() * coof)},'slow', function () {
-            $(this).css('right','auto');
-            mainCollageCell3.animate({'right':mainCollageCell4.width() - (mainCollageCell4.width() * coof)},'slow', function () {
-                $(this).css('left','auto');
-                mainCollageCell4.animate({'right':0},'slow',function () {
+    setTimeout(function () {
+        mainCollageCell1.animate({'left':0},'slow',function () {
+            $(this).css({
+                'left': 0,
+                'right': 'auto'
+            });
+            mainCollageCell2.animate({'left':mainCollageCell1.width() - (mainCollageCell1.width() * coof)},'slow', function () {
+                $(this).css('right','auto');
+                mainCollageCell3.animate({'right':mainCollageCell4.width() - (mainCollageCell4.width() * coof)},'slow', function () {
                     $(this).css('left','auto');
-
-                    resizeLogo(skewLogo, skewCollageCover);
-                    skewLogo.animate({'opacity':1},'slow',function () {
-                        $('.section.skew').css('border-bottom','1px solid #1f1e19');
+                    mainCollageCell4.animate({'right':0},'slow',function () {
+                        $(this).css('left','auto');
+                        resizeLogo(skewLogo, skewCollageCover);
+                        skewLogo.animate({'opacity':1},'slow',function () {
+                            $('.section.skew').css('border-bottom','1px solid #1f1e19');
+                        });
+                        // $(window).resize(function () {
+                        //     resizeskewCollage(
+                        //         navBarHeight,
+                        //         skewCollageCover,
+                        //         mainCollageContainer,
+                        //         mainCollageCell1,
+                        //         mainCollageCell2,
+                        //         mainCollageCell3,
+                        //         mainCollageCell4,
+                        //         skewLogo,
+                        //         coof
+                        //     );
+                        // });
                     });
-                    // $(window).resize(function () {
-                    //     resizeskewCollage(
-                    //         navBarHeight,
-                    //         skewCollageCover,
-                    //         mainCollageContainer,
-                    //         mainCollageCell1,
-                    //         mainCollageCell2,
-                    //         mainCollageCell3,
-                    //         mainCollageCell4,
-                    //         skewLogo,
-                    //         coof
-                    //     );
-                    // });
                 });
             });
         });
-    });
+    }, 1000);
 
     $(window).resize(function () {
         resizeskewCollage(
