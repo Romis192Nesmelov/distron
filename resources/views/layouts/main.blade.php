@@ -43,6 +43,7 @@
 
 {{--    <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>--}}
 {{--    <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>--}}
+    <script type="text/javascript" src="{{ asset('js/feedback.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 </head>
@@ -72,19 +73,26 @@
             <div class="col-md-4 ml-auto">
                 <div class="mb-5">
                     <h2 class="footer-heading mb-4">Обратная связь</h2>
-                    <form action="" method="post" class="form footer-suscribe-form">
+                    <form class="form useAjax footer-suscribe-form" action="{{ route('request_short') }}" method="post">
                         @csrf
                         <div class="input-group mb-3">
+                            @include('blocks._error_block',['name' => 'phone'])
                             <input class="form-control rounded-0 border-secondary text-white bg-transparent" placeholder="+7(___)___-__-__" name="phone">
                             <div class="input-group-append">
-                                <button class="btn btn-primary text-white rounded-0" type="submit" disabled>Перезвонить!</button>
+                                @include('blocks._button_block',[
+                                    'primary' => true,
+                                    'addClass' => 'text-white rounded-0',
+                                    'dataDismiss' => false,
+                                    'buttonType' => 'submit',
+                                    'buttonText' => trans('content.call_back'),
+                                    'disabled' => true
+                                ])
                             </div>
                         </div>
                         @include('blocks._checkbox_block',[
-                            'id' => 'agree-check',
                             'checked' => true,
-                            'name' => 'agree',
-                            'label' => 'Даю согласие на обработку персональных данных',
+                            'name' => 'i_agree',
+                            'label' => trans('content.i_agree'),
                         ])
                     </form>
                 </div>

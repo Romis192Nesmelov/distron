@@ -11,19 +11,9 @@ class StaticController extends Controller
 {
     use HelperTrait;
 
-    public function index1()
+    public function index()
     {
-        return $this->showView('home1');
-    }
-
-    public function index2()
-    {
-        return $this->showView('home2');
-    }
-
-    public function index3()
-    {
-        return $this->showView('home3');
+        return $this->showView('home');
     }
 
 //    public function changeLang(Request $request)

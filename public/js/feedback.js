@@ -1,30 +1,33 @@
 $(document).ready(function ($) {
-    $('form.useAjax button[type=submit]').click(function(e) {
-        e.preventDefault();
 
-        var popup = $(this).parents('.base-form.popup'),
-            form = $(this).parents('form'),
-            button = form.find('button[type=submit]'),
-            agree = form.find('input[name=i_agree]'),
-            formData = new FormData;
+    var body = $('body'),
+        formModal = $('#request-modal'),
+        loader = $('<div></div>').attr('id','loader').append($('<div></div>')),
+        agree = $('input[name=i_agree]');
+
+    agree.change(function () {
+        let button = $(this).parents('form.useAjax').find('button[type=submit]');
+        if (agree.is(':checked')) button.removeAttr('disabled');
+        else button.attr('disabled','disabled');
+    });
+
+    $('button[type=submit]').click(function(e) {
+        e.preventDefault();
+        let formData = new FormData,
+            form = $(this).parents('form.useAjax');
 
         if (!agree.is(':checked')) return false;
 
-        agree.change(function () {
-            if (agree.is(':checked')) button.removeAttr('disabled');
-            else button.attr('disabled','disabled');
-        });
-
         form.find('input, textarea, select').each(function () {
-            var self = $(this);
-            if (self.attr('type') == 'file') formData.append(self.attr('name'),self[0].files[0]);
-            else if (self.attr('type') == 'checkbox' || self.attr('type') == 'radio') formData = processingCheckFields(formData,self);
+            let self = $(this);
+            if (self.attr('type') === 'file') formData.append(self.attr('name'),self[0].files[0]);
+            else if (self.attr('type') === 'checkbox' || self.attr('type') === 'radio') formData = processingCheckFields(formData,self);
             else formData = processingFields(formData,self);
         });
 
-        $('.error_text').html('');
+        $('.error').css('display','none').html('');
         form.find('input, select, textarea, button').attr('disabled','disabled');
-        addingLoader();
+        addLoader(body,loader);
 
         $.ajax({
             url: form.attr('action'),
@@ -33,35 +36,31 @@ $(document).ready(function ($) {
             contentType: false,
             type: 'POST',
             success: function (data) {
-                closePopup(popup.attr('id'));
-                unlockAll(form);
+                formModal.modal('hide');
+                unlockAll(body,form,loader);
                 form.find('input, textarea').val('');
 
-                $('#thanx_popup h3').html(data.message);
-
-                $.fancybox.open({
-                    src: '#thanx_popup',
-                    type: 'inline'
-                });
+                let thanksModal = $('#thanks-modal');
+                thanksModal.find('h3').html(data.message);
+                thanksModal.modal('show');
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                var responseMsg = jQuery.parseJSON(jqXHR.responseText),
+                let response = jQuery.parseJSON(jqXHR.responseText),
                     replaceErr = {
                         'phone':'«Телефон»',
                         'email':'«E-mail»',
-                        'user_name':'«Имя»'
+                        'name':'«Имя»'
                     };
 
-                $.each(responseMsg, function (field, error) {
-                    var errorMsg = error[0],
-                        errorBlock = form.find('.input-'+field);
-
+                $.each(response.errors, function (field, errorMsg) {
+                    let errorBlock = form.find('.error.'+field);
+                    errorMsg = errorMsg[0];
                     $.each(replaceErr, function (src,replace) {
                         errorMsg = errorMsg.replace(src,replace);
                     });
-                    errorBlock.html(errorMsg);
+                    errorBlock.css('display','block').html(errorMsg);
                 });
-                unlockAll(form);
+                unlockAll(body,form,loader);
             }
         });
     });
@@ -90,11 +89,19 @@ function processingCheckFields(formData, inputObj) {
     return formData;
 }
 
-function unlockAll(form) {
+function unlockAll(body,form,loader) {
     form.find('input, select, textarea, button').removeAttr('disabled');
-    removingLoader();
+    loader.remove();
+    body.css({
+        'overflow':'auto',
+        'padding-right':0
+    });
 }
 
-function closePopup(id) {
-    $.fancybox.close({src: '#'+id});
+function addLoader(body,loader) {
+    body.prepend(loader.css('top',window.scrollY));
+    body.css({
+        'overflow':'hidden',
+        'padding-right':20
+    });
 }

@@ -11,9 +11,9 @@ trait HelperTrait
     public $validationInteger = 'required|integer';
     public $validationString = 'required|min:3|max:255';
     public $validationText = 'required|min:5|max:1200';
-    public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
-    public $validationSvg = 'required|mimes:svg|max:10';
-    public $validationSvgAndPng = 'required|mimes:svg,png|max:100';
+//    public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
+//    public $validationSvg = 'required|mimes:svg|max:10';
+//    public $validationSvgAndPng = 'required|mimes:svg,png|max:100';
     public $validationDoc = 'required|mimes:pdf|max:10000';
     public $validationJpg = 'required|mimes:jpg|max:2000';
     public $validationPng = 'required|mimes:png|max:2000';
@@ -30,8 +30,8 @@ trait HelperTrait
             'name' => 'required|min:3|max:255',
             'email' => 'required|email',
             'phone' => $this->validationPhone,
-            'text' => 'max:300',
-            'agree' => 'required|accepted'
+//            'text' => 'max:300',
+            'i_agree' => 'required|accepted'
         ];
     }
 

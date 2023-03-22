@@ -1,4 +1,4 @@
-<nav id="{{ $mainId }}" class="navbar navbar-expand-lg wow animate__animated animate__fadeIn" data-wow-delay=".3s">
+<nav id="{{ $mainId }}" class="navbar navbar-expand-lg">
 {{--    <a class="navbar-brand" href="#">Navbar</a>--}}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#{{ $collapseId }}" aria-controls="{{ $collapseId }}" aria-expanded="false" aria-label="Toggle navigation">
         <i class="icon-list"></i>

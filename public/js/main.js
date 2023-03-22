@@ -10,7 +10,7 @@ $(document).ready(function() {
         animateClass: 'animated',
         offset:       0,
         mobile:       true,
-        live:         true
+        live:         true,
     });
     wow.init();
 
@@ -93,9 +93,9 @@ $(document).ready(function() {
     });
 
     // Scroll controls
-    fixingMainMenu($(window).scrollTop());
     setTimeout(function () {
         windowScroll();
+        fixingMainMenu($(window).scrollTop());
     }, 1000);
 });
 
