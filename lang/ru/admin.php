@@ -4,6 +4,7 @@ return [
     'yes' => 'Да',
     'no' => 'Нет',
     'home_page' => 'Главная страница',
+    'goto' => 'Перейти',
 
     'details' => 'Подробнее',
     'close' => 'Закрыть',
@@ -45,4 +46,36 @@ return [
     'add_icon' => 'Добавить иконку',
     'adding_icon' => 'Добавление иконки',
     'do_you_really_want_delete_this_icon' => 'Вы действительно хотите удалить эту иконку?',
+
+    'image' => 'Картинка',
+    'head' => 'Заголовок',
+    'edit_content' => 'Редактирование контента',
+
+    'edit_question' => 'Редактирование вопроса',
+    'add_question' => 'Добавить вопрос',
+    'adding_question' => 'Добавление вопроса',
+    'question' => 'Вопрос',
+    'answer' => 'Ответ',
+    'question_status' => 'Статус вопроса',
+    'question_is_active' => 'Вопрос активен',
+    'question_not_active' => 'Вопрос не активен',
+    'do_you_really_want_delete_this_question' => 'Вы действительно хотите удалить этот вопрос?',
+
+    'contact_type' => 'Тип контакта',
+    'edit_contact' => 'Редактирование контакта',
+    'add_contact' => 'Добавить контакт',
+    'adding_contact' => 'Добавление контакт',
+    'contact' => 'Контакт',
+    'map' => 'Карта',
+    'do_you_really_want_delete_this_contact' => 'Вы действительно хотите удалить этот контакт?',
+
+    'edit_accumulator' => 'Редактирование аккумулятора',
+    'add_accumulator' => 'Добавить аккумулятор',
+    'adding_accumulator' => 'Добавление аккумулятора',
+    'accumulator_status' => 'Статус аккумулятора',
+    'accumulator_active' => 'Аккумулятор активен',
+    'accumulator_not_active' => 'Аккумулятор не активен',
+    'do_you_really_want_delete_this_accumulator' => 'Вы действительно хотите удалить этот аккумулятор?',
+
+    'edit_calculator' => 'Редактирование калькулятора',
 ];

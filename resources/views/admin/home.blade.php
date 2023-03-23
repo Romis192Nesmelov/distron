@@ -13,7 +13,7 @@
                             @include('admin.blocks._button_block', [
                                 'type' => 'button',
                                 'primary' => true,
-                                'text' => trans('content.goto'),
+                                'text' => trans('admin.goto'),
                                 'icon' => 'icon-circle-right2'
                             ])
                         </a>

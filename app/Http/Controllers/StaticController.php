@@ -1,18 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Accumulator;
+use App\Models\AccumulatorParam;
+use App\Models\Contact;
 use App\Models\Question;
 use App\Models\Setting;
 use App\Models\Content;
 use App\Models\Icon;
+use Illuminate\Support\Str;
 //use Illuminate\Http\Request;
 
 class StaticController extends Controller
 {
     use HelperTrait;
 
+    private array $data;
+
     public function index()
     {
+        $this->data['accumulators'] = Accumulator::where('active',1)->get();
+        $this->data['params'] = AccumulatorParam::all();
+        $this->data['icons'] = Icon::where('active',1)->get();
+        $this->data['content'] = Content::all();
+        $this->data['contacts'] = Contact::all();
+        $this->data['faq'] = Question::where('active',1)->get();
         return $this->showView('home');
     }
 
@@ -25,21 +37,24 @@ class StaticController extends Controller
 
     private function showView($view)
     {
-        return view($view,[
-            'metas' => $this->metas,
-            'settings' => Setting::first(),
-            'menu' => [
-                'calculator' =>             ['scroll' => 'calculator', 'name' => trans('menu.calculator')],
-                'about_company' =>          ['scroll' => 'about_company', 'name' => trans('menu.about_company')],
-                'advantages' =>             ['scroll' => 'advantages', 'name' => trans('menu.advantages')],
-                'our_services' =>           ['scroll' => 'our_services', 'name' => trans('menu.our_services')],
-                'battery_requirements' =>   ['scroll' => 'battery_requirements', 'name' => trans('menu.battery_requirements')],
-                'faq' =>                    ['scroll' => 'faq', 'name' => trans('menu.faq')],
-                'contacts' =>               ['scroll' => 'contacts', 'name' => trans('menu.contacts')]
-            ],
-            'icons' => Icon::where('active',1)->get(),
-            'content' => Content::all(),
-            'faq' => Question::where('active',1)->get()
-        ]);
+        $menu = ['calculator' => ['scroll' => 'calculator', 'name' => trans('menu.calculator')]];
+        $content = Content::all();
+        foreach ($content as $k => $item) {
+            $slug = Str::slug($item->head);
+            $menu[$slug] = ['scroll' => $slug, 'name' => $item->head];
+
+            if (!$k) $menu['advantages'] = ['scroll' => 'advantages', 'name' => trans('menu.advantages')];
+        }
+        $menu['faq'] = ['scroll' => 'faq', 'name' => trans('menu.faq')];
+        $menu['contacts'] = ['scroll' => 'contacts', 'name' => trans('menu.contacts')];
+
+        return view($view,array_merge(
+            $this->data, [
+                    'metas' => $this->metas,
+                    'settings' => Setting::first(),
+                    'menu' => $menu,
+                ]
+            )
+        );
     }
 }

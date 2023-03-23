@@ -48,7 +48,7 @@
                 'buttonText' => trans('content.leave_request')
             ])
         </div>
-        <img class="wow animate__animated animate__fadeIn" data-wow-delay="0.5s" id="main-image" src="{{ asset('images/v1/battery.png') }}" />
+        <img class="wow animate__animated animate__fadeIn" data-wow-delay="0.5s" id="main-image" src="{{ asset('images/battery.png') }}" />
     </div>
 
     <x-section wow_delay=".1" data-scroll-destination="{{ $menu['calculator']['scroll'] }}" head="{{ $menu['calculator']['name'] }}">
@@ -57,10 +57,10 @@
         </x-row>
     </x-section>
     <hr>
-    <x-section wow_delay=".1" data-scroll-destination="{{ $menu['about_company']['scroll'] }}" head="{{ $menu['about_company']['name'] }}">
+    <x-section wow_delay=".1" data-scroll-destination="{{ Str::slug($content[0]->head) }}" head="{{ $content[0]->head }}">
         <x-row>
             <div class="col-md-4 col-sm-6 col-xs-12 image">
-                <img src="{{ asset('images/v1/bad_to_good.jpg') }}" />
+                <img src="{{ asset('images/contents/bad_to_good.jpg') }}" />
             </div>
             <div class="col-md-8 col-sm-6 col-xs-12 px-5">
                 <p>{{ $content[0]->text }}</p>
@@ -80,20 +80,20 @@
         </x-row>
     </x-section>
 
-    <x-section class="color color1" wow_delay=".1" data-scroll-destination="{{ $menu['our_services']['scroll'] }}">
+    <x-section class="color color1" wow_delay=".1" data-scroll-destination="{{ Str::slug($content[1]->head) }}">
         <x-row>
             @include('blocks._color_section_image_content_block',[
-                'image' => asset('images/v1/distron-car.png'),
-                'head' => $menu['our_services']['name'],
+                'image' => asset('images/contents/'.$content[1]->image),
+                'head' => $content[1]->head,
                 'text' => $content[1]->text
             ])
         </x-row>
     </x-section>
 
-    <x-section class="white" wow_delay=".1" data-scroll-destination="{{ $menu['battery_requirements']['scroll'] }}" head="{{ $menu['battery_requirements']['name'] }}">
+    <x-section class="white" wow_delay=".1" data-scroll-destination="{{ Str::slug($content[2]->head) }}" head="{{ $content[2]->head }}">
         <x-row>
             @include('blocks._white_section_image_content_block',[
-                'image' => asset('images/v1/batteries.jpg'),
+                'image' => asset('images/contents/'.$content[2]->image),
                 'text' => $content[2]->text
             ])
         </x-row>

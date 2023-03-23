@@ -11,17 +11,17 @@ trait HelperTrait
     public $validationInteger = 'required|integer';
     public $validationString = 'required|min:3|max:255';
     public $validationText = 'required|min:5|max:1200';
+    public $validationCalculator = 'required|integer|min:0|max:50';
 //    public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
 //    public $validationSvg = 'required|mimes:svg|max:10';
-//    public $validationSvgAndPng = 'required|mimes:svg,png|max:100';
-    public $validationDoc = 'required|mimes:pdf|max:10000';
-    public $validationJpg = 'required|mimes:jpg|max:2000';
-    public $validationPng = 'required|mimes:png|max:2000';
+    public $validationJpgAndPng = 'mimes:jpg,png|max:2000';
+    public $validationJpg = 'mimes:jpg|max:2000';
+    public $validationPng = 'mimes:png|max:2000';
     public $validationDate = 'regex:/^(\d{2})\/(\d{2})\/(\d{4})$/';
 
     public function saveCompleteMessage()
     {
-        session()->flash('message', trans('content.save_complete'));
+        session()->flash('message', trans('admin.save_complete'));
     }
 
     public function getRequestValidation()

@@ -4,7 +4,7 @@
     @include('admin.blocks._modal_delete_block',[
         'modalId' => 'delete-modal',
         'action' => 'delete_user',
-        'head' => trans('content.do_you_really_want_delete_this_user')
+        'head' => trans('admin.do_you_really_want_delete_this_user')
     ])
 
     <div class="panel panel-flat">
@@ -28,7 +28,7 @@
             </table>
             @include('admin.blocks._add_button_block',[
                 'href' => route($menu[$data['menu_key']]['href']).'/add',
-                'text' => trans('content.add_user')
+                'text' => trans('admin.add_user')
             ])
         </div>
     </div>

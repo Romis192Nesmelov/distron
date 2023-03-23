@@ -1,21 +1,26 @@
-<div class="col-md-4 col-sm-6 col-xs-12">
+<div class="col-md-4 col-sm-12 col-xs-12">
     <h3 class="text-semibold">Тип аккумулятора</h3>
-    <select class="select">
-        <option value="AZ">Аккумулятор типа 1</option>
-        <option value="CO">Аккумулятор типа 2</option>
-        <option value="ID">Аккумулятор типа 3</option>
-        <option value="WY">Аккумулятор типа 4</option>
-    </select>
+    @include('blocks._select_block',[
+        'values' => $accumulators,
+        'name' => 'accumulator',
+        'selected' => 1
+    ])
 </div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-    <h3 class="text-semibold">Напряжение (В)</h3>
-    <div class="noui-slider-info has-pips" id="slider-voltage"></div>
-</div>
-<div class="col-md-4 col-sm-6 col-xs-12">
-    <h3 class="text-semibold">Сопротивление (мОм)</h3>
-    <div class="noui-slider-info has-pips" id="slider-resistance"></div>
-</div>
+
+@foreach($params as $param)
+    @include('blocks._slider_block',[
+        'colMd' => 4,
+        'sliderHead' => $param->type ? trans('content.resistance') : trans('content.voltage'),
+        'sliderName' => $param->type ? 'resistance' : 'voltage',
+        'slideId' => $param->type ? 'slider-resistance' : 'slider-voltage',
+        'sliderMin' => $param->min,
+        'sliderMax' => $param->max,
+        'sliderFrom' => $param->max*0.7,
+        'sliderStep' => 1
+    ])
+@endforeach
+
 <div class="col-12 mt-4" id="calc-result">
-    <h3 class="text-semibold">Стоимость</h3>
+    <h3 class="text-semibold">{{ trans('content.value') }}</h3>
     <h2><spam>5000</spam>₽</h2>
 </div>

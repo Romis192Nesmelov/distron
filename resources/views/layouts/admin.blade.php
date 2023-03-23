@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>VNE Systems {{ trans('content.admin_page').' '.$breadcrumbs[count($breadcrumbs)-1]['name'] }}</title>
+    <title>Distron {{ trans('admin.admin_page').' '.$breadcrumbs[count($breadcrumbs)-1]['name'] }}</title>
     @include('blocks._favicon_block')
     <!-- Global stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet" type="text/css">
@@ -20,44 +20,22 @@
     <!-- /global stylesheets -->
 
     <!-- Core JS files -->
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/loaders/pace.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/core/libraries/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/core/libraries/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('/js/admin/plugins/loaders/blockui.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/libraries/bootstrap.min.js') }}"></script>
     <!-- /core JS files -->
 
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/styling/uniform.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/styling/switchery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/styling/bootstrap-switch.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/styling/bootstrap-toggle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/inputs/typeahead/typeahead.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/inputs/typeahead/handlebars.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-switch.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-toggle.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/sliders/ion_rangeslider.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/ui/moment/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/daterangepicker.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/anytime.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/pickadate/picker.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/pickadate/picker.date.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/pickadate/picker.time.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/pickadate/legacy.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/pages/picker_date.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/tables/datatables/datatables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/fancybox.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/pages/datatables_basic.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/pages/gallery.js') }}"></script>
-
-    <script type="text/javascript" src="{{ asset('js/admin/core/main.controls.js') }}"></script>
     <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-
-    <!-- /theme JS files -->
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/pickers/color/spectrum.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/jquery.maskedinput.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/core/app.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/pages/picker_color.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
 </head>
 
 <body>
@@ -84,14 +62,14 @@
                 'menu' => [['href' => route('logout'), 'icon' => 'icon-switch2', 'text' => trans('content.exit')]]
             ])
 
-            @include('admin.blocks._dropdown_menu_item_block',[
-                'menuName' => trans('menu.language'),
-                'icon' => 'icon-earth',
-                'menu' => [
-                    ['href' => route('change_lang',['lang' => 'ru']), 'text' => trans('menu.ru')],
-                    ['href' => route('change_lang',['lang' => 'en']), 'text' => trans('menu.en')]
-                ]
-            ])
+{{--            @include('admin.blocks._dropdown_menu_item_block',[--}}
+{{--                'menuName' => trans('menu.language'),--}}
+{{--                'icon' => 'icon-earth',--}}
+{{--                'menu' => [--}}
+{{--                    ['href' => route('change_lang',['lang' => 'ru']), 'text' => trans('menu.ru')],--}}
+{{--                    ['href' => route('change_lang',['lang' => 'en']), 'text' => trans('menu.en')]--}}
+{{--                ]--}}
+{{--            ])--}}
         </ul>
 
     </div>

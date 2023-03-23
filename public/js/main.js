@@ -18,23 +18,23 @@ $(document).ready(function() {
         minimumResultsForSearch: Infinity
     });
 
-    $('#slider-voltage').ionRangeSlider({
-        grid: true,
-        min: 5,
-        max: 12,
-        from: 9,
-        step: 1,
-        prettify_enabled: false
-    });
-
-    $('#slider-resistance').ionRangeSlider({
-        grid: true,
-        min: 1,
-        max: 6,
-        from: 3,
-        step: 1,
-        prettify_enabled: false
-    });
+    // $('#slider-voltage').ionRangeSlider({
+    //     grid: true,
+    //     min: 5,
+    //     max: 12,
+    //     from: 9,
+    //     step: 1,
+    //     prettify_enabled: false
+    // });
+    //
+    // $('#slider-resistance').ionRangeSlider({
+    //     grid: true,
+    //     min: 1,
+    //     max: 6,
+    //     from: 3,
+    //     step: 1,
+    //     prettify_enabled: false
+    // });
 
     // $('.owl-carousel.news').owlCarousel({
     //     margin: 10,

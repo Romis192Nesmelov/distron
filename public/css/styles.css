@@ -121,7 +121,7 @@ hr {
 #main-collage {
     width: 100%;
     height: 600px;
-    background: url("../images/v1/waves.jpg") left top no-repeat;
+    background: url("../images/waves.jpg") left top no-repeat;
 }
 
 #main-image {
@@ -134,12 +134,13 @@ hr {
 #main-nav {
     position: absolute;
     z-index: 999;
+    padding-left: 10px;
 }
 
 #main-nav.top-fix {
     width: 100%;
     height: 51px;
-    background: url("../images/v1/waves.jpg") left top no-repeat;
+    background: url("../images/waves.jpg") left top no-repeat;
     position: fixed;
     top: -51px;
     z-index: 999;
@@ -175,13 +176,13 @@ hr {
 }
 
 .section.color1 {
-    background-image: url("../images/v1/color_section1.jpg");
+    background-image: url("../images/color_section1.jpg");
 }
 
 .section.color2 {
     padding-top: 70px;
     padding-bottom: 70px;
-    background-image: url("../images/v1/color_section2.jpg");
+    background-image: url("../images/color_section2.jpg");
 }
 
 .section h2 {
@@ -284,6 +285,11 @@ input:focus {
 }
 
 @media (max-width: 1300px)  {
+    #main-image {
+        width: 400px;
+        top: 250px;
+    }
+
     .section.color {
         background-size: 120% 100%;
     }
@@ -308,6 +314,19 @@ input:focus {
 
     .section.color p {
         margin-bottom: 80px;
+    }
+}
+
+@media (max-width: 768px)  {
+    .slider h3 {
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 700px)  {
+    #main-image {
+        width: 300px;
+        top: 320px;
     }
 }
 
@@ -338,6 +357,27 @@ input:focus {
 }
 
 @media (max-width: 500px)  {
+    #main-logo {
+        width: 85%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #main-logo img.logo {
+        width: 100%;
+    }
+
+    #main-logo h1 {
+        font-size: 1em;
+    }
+
+    #main-image {
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 320px;
+    }
+
     .section.contacts table {
         background: none;
     }
@@ -350,5 +390,16 @@ input:focus {
     .section.contacts td .line,
     .section.contacts td .dot {
         display: none;
+    }
+}
+
+@media (max-width: 325px)  {
+    #main-logo h1 {
+        font-size: .8em;
+        padding-left: 85px;
+    }
+
+    #main-logo .btn.btn-primary {
+        margin-left: 85px;
     }
 }

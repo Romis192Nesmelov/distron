@@ -11,7 +11,7 @@ class LoginController extends Controller
         $credentials = $request->validate(['email' => 'required|email','password' => 'required']);
         if (Auth::attempt($credentials, $request->remember == 'on')) {
             $request->session()->regenerate();
-            return redirect()->intended(route('admin.news'));
+            return redirect()->intended(route('admin.home'));
         } else return back()->withErrors(['email' => trans('auth.failed')]);
     }
 

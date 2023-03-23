@@ -8,20 +8,13 @@
                 @csrf
                 <div class="panel panel-flat">
                     <div class="panel-body">
-                        <x-atitle val="4">{{ trans('content.seo') }}</x-atitle>
+                        <x-atitle val="4">{{ trans('admin.seo') }}</x-atitle>
                         @include('admin.blocks._input_block', [
-                            'label' => trans('content.page_title').trans('content.in_russian'),
-                            'name' => 'title_ru',
+                            'label' => trans('admin.page_title'),
+                            'name' => 'title',
                             'type' => 'text',
-                            'placeholder' => trans('content.page_title').trans('content.in_russian'),
-                            'value' => $data['settings']['title_ru']
-                        ])
-                        @include('admin.blocks._input_block', [
-                            'label' => trans('content.page_title').trans('content.in_english'),
-                            'name' => 'title_en',
-                            'type' => 'text',
-                            'placeholder' => trans('content.page_title').trans('content.in_english'),
-                            'value' => $data['settings']['title_en']
+                            'placeholder' => trans('admin.page_title'),
+                            'value' => $data['settings']->title
                         ])
                         @foreach($data['metas'] as $meta => $params)
                             @include('admin.blocks._input_block', [

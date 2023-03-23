@@ -3,9 +3,9 @@
 namespace Database\Seeders;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\Models\AccumulatorParam;
 
-class UserSeeder extends Seeder
+class AccumulatorParamsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,12 +15,12 @@ class UserSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['email' => 'romis.nesmelov@gmail.com', 'password' => bcrypt('apg192')],
-            ['email' => 'info@distron.ru', 'password' => bcrypt('distron')]
+            ['type' => 0, 'min' => 5, 'max' => 12],
+            ['type' => 1, 'min' => 1, 'max' => 6],
         ];
 
-        foreach ($data as $user) {
-            User::create($user);
+        foreach ($data as $item) {
+            AccumulatorParam::create($item);
         }
     }
 }

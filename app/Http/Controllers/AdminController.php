@@ -1,18 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Accumulator;
+use App\Models\AccumulatorParam;
 use App\Models\Contact;
 use App\Models\Icon;
-use App\Models\Project;
-use App\Models\ProjectType;
+use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
-use App\Models\News;
 use App\Models\Setting;
-use App\Models\ProjectImage;
 use App\Models\Content;
-use Illuminate\Support\Str;
+//use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -32,13 +31,6 @@ class AdminController extends Controller
                 'description' => '',
                 'icon' => 'icon-home2',
             ],
-            'settings' => [
-                'id' => 'settings',
-                'href' => 'admin.settings',
-                'name' => trans('admin_menu.settings'),
-                'description' => trans('admin_menu.settings_description'),
-                'icon' => 'icon-gear',
-            ],
             'users' => [
                 'id' => 'users',
                 'href' => 'admin.users',
@@ -46,19 +38,33 @@ class AdminController extends Controller
                 'description' => trans('admin_menu.admins_description'),
                 'icon' => 'icon-users',
             ],
-            'why_us' => [
-                'id' => 'why_us',
-                'href' => 'admin.why_us',
-                'name' => trans('admin_menu.why_us'),
-                'description' => trans('admin_menu.why_us_description'),
-                'icon' => 'icon-people',
+            'settings' => [
+                'id' => 'settings',
+                'href' => 'admin.settings',
+                'name' => trans('admin_menu.settings'),
+                'description' => trans('admin_menu.settings_description'),
+                'icon' => 'icon-gear',
             ],
-            'news' => [
-                'id' => 'news',
-                'href' => 'admin.news',
-                'name' => trans('admin_menu.news'),
-                'description' => trans('admin_menu.news_description'),
-                'icon' => 'icon-newspaper2',
+            'accumulators' => [
+                'id' => 'accumulators',
+                'href' => 'admin.accumulators',
+                'name' => trans('admin_menu.accumulators'),
+                'description' => trans('admin_menu.accumulators_description'),
+                'icon' => 'icon-battery-charging',
+            ],
+            'calculator' => [
+                'id' => 'calculator',
+                'href' => 'admin.calculator',
+                'name' => trans('admin_menu.calculator'),
+                'description' => trans('admin_menu.calculator_description'),
+                'icon' => 'icon-equalizer',
+            ],
+            'icons' => [
+                'id' => 'icons',
+                'href' => 'admin.icons',
+                'name' => trans('admin_menu.icons'),
+                'description' => trans('admin_menu.icons_description'),
+                'icon' => 'icon-people',
             ],
             'content' => [
                 'id' => 'content',
@@ -67,27 +73,20 @@ class AdminController extends Controller
                 'description' => trans('admin_menu.content_description'),
                 'icon' => 'icon-puzzle2',
             ],
-            'projects_types' => [
-                'id' => 'projects_types',
-                'href' => 'admin.projects_types',
-                'name' => trans('admin_menu.projects_types'),
-                'description' => trans('admin_menu.projects_types_description'),
-                'icon' => 'icon-git-branch',
-            ],
-            'projects' => [
-                'id' => 'projects',
-                'href' => 'admin.projects',
-                'name' => trans('admin_menu.portfolio'),
-                'description' => trans('admin_menu.portfolio_description'),
-                'icon' => 'icon-portfolio',
+            'faq' => [
+                'id' => 'faq',
+                'href' => 'admin.faq',
+                'name' => trans('admin_menu.faq'),
+                'description' => trans('admin_menu.faq_description'),
+                'icon' => 'icon-question3',
             ],
             'contacts' => [
                 'id' => 'contacts',
                 'href' => 'admin.contacts',
                 'name' => trans('admin_menu.contacts'),
                 'description' => trans('admin_menu.contacts_description'),
-                'icon' => 'icon-collaboration',
-            ]
+                'icon' => 'icon-map',
+            ],
         ];
         $this->breadcrumbs[] = $this->menu['home'];
     }
@@ -107,7 +106,7 @@ class AdminController extends Controller
                 'id' => $this->menu['users']['id'],
                 'href' => $this->menu['users']['href'],
                 'params' => ['id' => $this->data['user']->id],
-                'name' => trans('content.edit_user', ['user' => $this->data['user']->email]),
+                'name' => trans('admin.edit_user', ['user' => $this->data['user']->email]),
             ];
             return $this->showView('user');
         } else if ($slug && $slug == 'add') {
@@ -115,7 +114,7 @@ class AdminController extends Controller
                 'id' => $this->menu['users']['id'],
                 'href' => $this->menu['users']['href'],
                 'slug' => 'add',
-                'name' => trans('content.adding_user'),
+                'name' => trans('admin.adding_user'),
             ];
             return $this->showView('user');
         } else {
@@ -150,46 +149,6 @@ class AdminController extends Controller
         return $this->deleteSomething($request, new User());
     }
 
-    public function news(Request $request, $slug=null)
-    {
-        return $this->getSomething(
-            $request,new News(),
-            'news',
-            'news',
-            $slug,
-            'content.edit_news',
-            'content.adding_news',
-            'all_news',
-            'news'
-        );
-    }
-
-    public function editNews(Request $request)
-    {
-        $validationArr = [
-            'time' => $this->validationDate,
-            'title_ru' => $this->validationString,
-            'content_ru' => $this->validationString,
-            'title_en' => $this->validationString,
-            'content_en' => $this->validationString,
-        ];
-
-        return $this->editSometing (
-            $request,
-            new News(),
-            $validationArr,
-            $this->validationJpg,
-            'images/news/',
-            'news%id%.jpg',
-            'news'
-        );
-    }
-
-    public function deleteNews(Request $request)
-    {
-        return $this->deleteSomething($request, new News());
-    }
-
     public function settings()
     {
         $this->breadcrumbs[] = $this->menu['settings'];
@@ -198,12 +157,80 @@ class AdminController extends Controller
         return $this->showView('settings');
     }
 
+    public function accumulators(Request $request, $slug=null)
+    {
+        return $this->getSomething(
+            $request,
+            new Accumulator(),
+            'accumulators',
+            'accumulators',
+            $slug,
+            'admin.edit_accumulator',
+            'admin.adding_accumulator',
+            'accumulators',
+            'accumulator'
+        );
+    }
+
+    public function editAccumulator(Request $request)
+    {
+        return $this->editSometing (
+            $request,
+            new Accumulator(),
+            ['name' => $this->validationString],
+            $this->validationPng,
+            '',
+            '',
+            'accumulators'
+        );
+    }
+
+    public function calculator(Request $request, $slug=null)
+    {
+        return $this->getSomething(
+            $request,
+            new AccumulatorParam(),
+            'calculator',
+            'params',
+            null,
+            'admin.edit_calculator',
+            '',
+            'calculator',
+            ''
+        );
+    }
+
+    public function editCalculator(Request $request)
+    {
+        $fields = $this->validate($request, [
+            'voltage_from' => $this->validationCalculator,
+            'voltage_to' => $this->validationCalculator,
+            'resistance_from' => $this->validationCalculator,
+            'resistance_to' => $this->validationCalculator,
+        ]);
+
+        $params = AccumulatorParam::all();
+        $params[0]->update([
+            'min' => $fields['voltage_from'],
+            'max' => $fields['voltage_to']
+        ]);
+
+        $params[1]->update([
+            'min' => $fields['resistance_from'],
+            'max' => $fields['resistance_to']
+        ]);
+        $this->saveCompleteMessage();
+        return redirect(route('admin.calculator'));
+    }
+
+    public function deleteAccumulator(Request $request)
+    {
+        return $this->deleteSomething($request, new Accumulator());
+    }
+
     public function editSettings(Request $request)
     {
-        $validationArr = [
-            'title_ru' => $this->validationString,
-            'title_en' => $this->validationString,
-        ];
+        $validationArr = ['title' => $this->validationString];
 
         foreach ($this->metas as $meta => $params) {
             if ($request->has($meta) && $request->input($meta)) {
@@ -217,201 +244,47 @@ class AdminController extends Controller
         return redirect(route('admin.settings'));
     }
 
-    public function contacts(Request $request)
+    public function icons(Request $request, $slug=null)
     {
-        $this->data['menu_key'] = 'contacts';
-        $this->breadcrumbs[] = $this->menu['contacts'];
-        if ($request->has('id')) {
-            $this->data['contact'] = Contact::find($request->input('id'));
-            $this->breadcrumbs[] = [
-                'id' => $this->menu['contacts']['id'],
-                'href' => $this->menu['contacts']['href'],
-                'params' => ['id' => $this->data['contact']->id],
-                'name' => trans('content.edit_contact', ['contact_name' => ucfirst($this->data['contact']->type)]),
-            ];
-            return $this->showView('contact');
-        } else {
-            $this->data['contacts'] = Contact::all();
-            return $this->showView('contacts');
-        }
-    }
-
-    public function editContact(Request $request)
-    {
-        $fields = $this->validate($request, [
-            'id' => 'required|required|integer|exists:contacts',
-            'contact' => $this->validationString
-        ]);
-        $contact = Contact::find($request->input('id'));
-        $fields['active'] = $request->active ? 1 : 0;
-        $contact->update($fields);
-        $this->saveCompleteMessage();
-        return redirect(route('admin.contacts'));
-    }
-
-    public function whyUs(Request $request, $slug=null)
-    {
-        $militaryType = ProjectType::find(1);
-        $this->data['heads'] = [
-            trans('content.home_page'),
-            $militaryType['name_'.app()->getLocale()]
-        ];
-
         return $this->getSomething(
-            $request,new Icon(),
-            'why_us',
+            $request,
+            new Icon(),
             'icons',
-            $slug,
-            'content.edit_icon',
-            'content.adding_icon',
+            'icons',
+            null,
+            'admin.edit_icon',
+            'admin.adding_icon',
             'icons',
             'icon'
         );
     }
 
-    public function editWhyUs(Request $request)
+    public function editicon(Request $request)
     {
-        $validationArr = [
-            'title_ru' => $this->validationString,
-            'title_en' => $this->validationString
-        ];
-
-        if ($request->has('description_ru')) {
-            $validationArr['description_ru'] = $this->validationText;
-            $validationArr['description_en'] = $this->validationText;
-        }
-
         return $this->editSometing (
             $request,
             new Icon,
-            $validationArr,
+            ['title' => $this->validationString],
             $this->validationPng,
             'images/icons/',
-            'why_us_icon%id%.png',
-            'why_us'
+            'icon%id%.png',
+            'icons'
         );
     }
 
-    public function deleteWhyUs(Request $request)
+    public function deleteicon(Request $request)
     {
         return $this->deleteSomething($request, new Icon());
     }
 
-    public function projectsTypes(Request $request, $slug=null)
-    {
-        $this->data['types'] = ProjectType::all();
-        return $this->getSomething (
-            $request,
-            new ProjectType(),
-            'projects_types',
-            'projects_types',
-            $slug,
-            'content.edit_projects_type',
-            'adding_projects_type',
-            'projects_types',
-            'projects_type'
-        );
-    }
-
-    public function editProjectsType(Request $request)
-    {
-        $validationArr = [
-            'name_ru' => $this->validationString,
-            'name_en' => $this->validationString,
-        ];
-
-        if ($request->has('id') && $request->input('id') != 1) {
-            $validationArr['description_ru'] = $this->validationText;
-            $validationArr['description_en'] = $this->validationText;
-        }
-
-        return $this->editSometing (
-            $request,
-            new ProjectType(),
-            $validationArr,
-            $this->validationPng,
-            'images/projects/',
-            'content_image%id%.png',
-            'projects_types'
-        );
-    }
-
-    public function deleteProjectsType(Request $request)
-    {
-        $this->validate($request, ['id' => 'required|integer|exists:project_types,id|not_in:1']);
-        $projectsTypes = ProjectType::find($request->input('id'));
-
-        if (file_exists(base_path('public/'.$projectsTypes->image))) {
-            unlink(base_path('public/'.$projectsTypes->image));
-        }
-
-        foreach ($projectsTypes->projects as $project) {
-            foreach ($project->images as $image) {
-                if (file_exists(base_path('public/'.$image->preview))) unlink(base_path('public/'.$image->preview));
-                if (file_exists(base_path('public/'.$image->full))) unlink(base_path('public/'.$image->full));
-            }
-            $project->delete();
-        }
-
-        $projectsTypes->delete();
-        return response()->json(['success' => true]);
-    }
-
-    public function projects(Request $request, $slug=null)
-    {
-        $this->data['types'] = ProjectType::all();
-        return $this->getSomething (
-            $request,
-            new Project(),
-            'projects',
-            'projects',
-            $slug,
-            'content.edit_project',
-            'content.adding_project',
-            'projects',
-            'project'
-        );
-    }
-
-    public function editProject(Request $request)
-    {
-        $validationArr = [
-            'name_ru' => $this->validationString,
-            'name_en' => $this->validationString,
-            'description_ru' => $this->validationText,
-            'description_en' => $this->validationText,
-            'project_type_id' => 'required|integer|exists:project_types,id'
-        ];
-
-        return $this->editSometing (
-            $request,
-            new Project(),
-            $validationArr,
-            '',
-            '',
-            '',
-            'projects'
-        );
-    }
-
-    public function deleteProject(Request $request)
-    {
-        return $this->deleteSomething($request, new Project());
-    }
-
     public function contents(Request $request)
     {
-        $militaryType = ProjectType::find(1);
-        $this->data['heads'] = [
-            trans('menu.about_company'),
-            $militaryType['name_'.app()->getLocale()]
-        ];
         return $this->getSomething(
             $request,new Content(),
             'content',
             'contents',
             null,
-            'content.edit_content',
+            'admin.edit_content',
             '',
             'contents',
             'content'
@@ -421,19 +294,95 @@ class AdminController extends Controller
     public function editContent(Request $request)
     {
         $validationArr = [
-            'content_ru' => $this->validationText,
-            'content_en' => $this->validationText
+            'head' => $this->validationString,
+            'text' => $this->validationText
         ];
 
         return $this->editSometing (
             $request,
             new Content(),
             $validationArr,
-            '',
-            '',
+            $this->validationJpgAndPng,
+            'images/contents/',
             '',
             'contents'
         );
+    }
+
+    public function faq(Request $request, $slug=null)
+    {
+        return $this->getSomething(
+            $request,
+            new Question(),
+            'faq',
+            'questions',
+            $slug,
+            'admin.edit_question',
+            'admin.adding_question',
+            'questions',
+            'question'
+        );
+    }
+
+    public function editFaq(Request $request)
+    {
+        $validationArr = [
+            'question' => $this->validationString,
+            'answer' => $this->validationText
+        ];
+
+        return $this->editSometing (
+            $request,
+            new Question(),
+            $validationArr,
+            '',
+            '',
+            '',
+            'faq'
+        );
+    }
+
+    public function deleteFaq(Request $request)
+    {
+        return $this->deleteSomething($request, new Question());
+    }
+
+    public function contacts(Request $request, $slug=null)
+    {
+        return $this->getSomething(
+            $request,
+            new Contact(),
+            'contacts',
+            'contacts',
+            $slug,
+            'admin.edit_contact',
+            'admin.adding_contact',
+            'contacts',
+            'contact'
+        );
+    }
+
+    public function editContact(Request $request)
+    {
+        $validationArr = [
+            'contact' => $this->validationString,
+            'type' => 'required|integer|min:1|max:4'
+        ];
+
+        return $this->editSometing (
+            $request,
+            new Contact(),
+            $validationArr,
+            '',
+            '',
+            '',
+            'contacts'
+        );
+    }
+
+    public function deleteContact(Request $request)
+    {
+        return $this->deleteSomething($request, new Contact());
     }
 
     private function getSomething (
@@ -451,7 +400,7 @@ class AdminController extends Controller
         $this->data['menu_key'] = $menuKey;
         $this->breadcrumbs[] = $this->menu[$menuKey];
         if ($request->has('id')) {
-            $itemName = $itemName == 'news' ? 'news' : substr($itemName, 0, -1);
+            $itemName = substr($itemName, 0, -1);
             $this->data[$itemName] = $model->find($request->input('id'));
             $this->breadcrumbs[] = [
                 'id' => $this->menu[$menuKey]['id'],
@@ -469,10 +418,7 @@ class AdminController extends Controller
             ];
             return $this->showView($viewForOne);
         } else {
-            if ($model instanceof News) $this->data[$itemName] = $model->orderBy('time','desc')->get();
-            elseif ($model instanceof Project) $this->data[$itemName] = $model->orderBy('project_type_id','desc')->get();
-            elseif ($model instanceof Icon) $this->data[$itemName] = $model->orderBy('military')->get();
-            else $this->data[$itemName] = $model->all();
+            $this->data[$itemName] = $model->all();
             return $this->showView($viewForList);
         }
     }
@@ -490,66 +436,33 @@ class AdminController extends Controller
         if ($request->has('id')) {
             $validationArr['id'] = 'required|integer|exists:'.$model->getTable().',id';
 
-            if ($model instanceof Project) {
-                for ($i=1;$i<=5;$i++) {
-                    if ($request->hasFile('image_preview'.$i)) $validationArr['image_preview'.$i] = $this->validationPng;
-                    if ($request->hasFile('image_full'.$i)) $validationArr['image_full'.$i] = $this->validationJpg;
-                }
-            } else if ($validationImage && $request->hasFile('image')) $validationArr['image'] = $validationImage;
-
+            if ($validationImage && $request->hasFile('image')) $validationArr['image'] = $validationImage;
             $fields = $this->validate($request, $validationArr);
-            if ($model instanceof Icon) $fields['military'] = $request->military ? 1 : 0;
             $fields['active'] = isset($request->active) && $request->active ? 1 : 0;
-            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
+//            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
 
             $table = $model->find($request->input('id'));
             $table->update($fields);
         } else {
-            if ($model instanceof Project) {
-                for ($i=1;$i<=5;$i++) {
-                    $validationArr['image_preview'.$i] = $this->validationPng;
-                    $validationArr['image_full'.$i] = $this->validationJpg;
-                }
-            } else if ($validationImage) $validationArr['image'] = $validationImage;
+            if ($validationImage) $validationArr['image'] = 'required|'.$validationImage;
             $fields = $this->validate($request, $validationArr);
-            if ($model instanceof Icon) $fields['military'] = $request->military ? 1 : 0;
             $fields['active'] = $request->active ? 1 : 0;
-            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
+//            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
+
             $table = $model->create($fields);
         }
 
-        if ($model instanceof Project) {
-            for ($i=1;$i<=5;$i++) {
-                $imagePreviewName = $this->movingProjectFile($request, $i, $table->name_en, 'preview');
-                $imageFullName = $this->movingProjectFile($request, $i, $table->name_en, 'full');
-                if (!$request->has('id')) {
-                    ProjectImage::create([
-                        'preview' => $imagePreviewName,
-                        'full' => $imageFullName,
-                        'project_id' => $table->id
-                    ]);
-                }
-            }
-        } else if ($validationImage && $request->hasFile('image')) {
-            $imageName = str_replace('%id%',$table->id,$imageName);
-            $this->processingFile($request,'image',$pathToImages,$imageName);
-            if (!$request->has('id')) {
-                $table->image = $pathToImages.$imageName;
+        if ($validationImage && $request->hasFile('image')) {
+
+            if ($model instanceof Content) {
+                $imageName = $request->file('image')->getClientOriginalName();
+                $table->image = $imageName;
                 $table->save();
-            }
+            } else $imageName = str_replace('%id%',$table->id,$imageName);
+            $this->processingFile($request,'image',$pathToImages,$imageName);
         }
         $this->saveCompleteMessage();
         return redirect(route('admin.'.$returnRoute));
-    }
-
-    private function movingProjectFile(Request $request, $i, $projectName, $imageSuffix)
-    {
-        if ($request->hasFile('image_'.$imageSuffix.$i)) {
-            $pathToImages = 'images/portfolio/';
-            $imageName = Str::slug($projectName).'_'.$i.'_'.$imageSuffix.'.png';
-            $this->processingFile($request, 'image_'.$imageSuffix.$i, $pathToImages, $imageName);
-            return $pathToImages.$imageName;
-        }
     }
 
     private function deleteSomething(Request $request, Model $model)
@@ -557,7 +470,9 @@ class AdminController extends Controller
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
         $table = $model->find($request->input('id'));
 
-        if (isset($table->image) && $model->image && file_exists(base_path('public/'.$model->image))) {
+        if ($model instanceof Icon) {
+            unlink(base_path('public/images/icons/icon'.$table->id.'.png'));
+        } elseif (isset($table->image) && $model->image && file_exists(base_path('public/'.$model->image))) {
             unlink(base_path('public/'.$model->image));
         } elseif (isset($table->images)) {
             foreach ($table->images as $image) {

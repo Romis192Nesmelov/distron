@@ -2,7 +2,7 @@
     @include('admin.blocks._button_block', [
         'type' => 'submit',
         'icon' => ' icon-floppy-disk',
-        'text' => trans('content.save'),
+        'text' => trans('admin.save'),
         'addClass' => 'pull-right'
     ])
 </div>

@@ -15,4 +15,4 @@
         'addAttr' => ['data-dismiss' => 'modal']
     ])
 </div>
-@include('admin.blocks._modal_block',['id' => $modalId, 'title' => trans('content.warning'), 'content' => ob_get_clean()])
+@include('admin.blocks._modal_block',['id' => $modalId, 'title' => trans('admin.warning'), 'content' => ob_get_clean()])

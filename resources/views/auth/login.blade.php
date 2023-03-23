@@ -38,7 +38,7 @@
             @include('admin.blocks._button_block', [
                 'type' => 'submit',
                 'mainClass' => 'bg-warning-400 btn-block',
-                'text' => trans('content.enter'),
+                'text' => trans('admin.enter'),
                 'icon' => 'icon-circle-right2 position-right'
             ])
         </div>

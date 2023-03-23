@@ -21,26 +21,26 @@
                         <div class="panel panel-flat">
                             @if (isset($data['user']))
                                 <div class="panel-heading">
-                                    <h4 class="text-grey-300">{{ trans('content.if_you_doesnt_want_to_change_password') }}</h4>
+                                    <h4 class="text-grey-300">{{ trans('admin.if_you_doesnt_want_to_change_password') }}</h4>
                                 </div>
                             @endif
 
                             <div class="panel-body">
                                 @include('admin.blocks._input_block', [
-                                    'label' => trans('content.user_password'),
+                                    'label' => trans('admin.user_password'),
                                     'name' => 'password',
                                     'type' => 'password',
                                     'max' => 50,
-                                    'placeholder' => trans('content.user_password'),
+                                    'placeholder' => trans('admin.user_password'),
                                     'value' => ''
                                 ])
 
                                 @include('admin.blocks._input_block', [
-                                    'label' => trans('content.confirm_password'),
+                                    'label' => trans('admin.confirm_password'),
                                     'name' => 'password_confirmation',
                                     'type' => 'password',
                                     'max' => 50,
-                                    'placeholder' => trans('content.confirm_password'),
+                                    'placeholder' => trans('admin.confirm_password'),
                                     'value' => ''
                                 ])
 
