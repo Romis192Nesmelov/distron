@@ -10,10 +10,24 @@ td.image {
     width: 10%;
 }
 
+td.head {
+    width: 15%;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: left;
+}
+
 td.image img,
 .edit-image-preview img,
 .main-image img {
     width: 100%;
+    border: 2px solid grey;
+}
+
+td.image .image-cover {
+    width: 150px;
+    height: 100px;
+    background-size: cover;
     border: 2px solid grey;
 }
 

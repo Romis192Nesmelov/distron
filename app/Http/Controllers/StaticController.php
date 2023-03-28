@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Accumulator;
 use App\Models\AccumulatorParam;
 use App\Models\Contact;
+use App\Models\News;
 use App\Models\Question;
 use App\Models\Setting;
 use App\Models\Content;
@@ -22,6 +23,7 @@ class StaticController extends Controller
         $this->data['accumulators'] = Accumulator::where('active',1)->get();
         $this->data['params'] = AccumulatorParam::all();
         $this->data['icons'] = Icon::where('active',1)->get();
+        $this->data['news'] = News::where('active',1)->get();
         $this->data['content'] = Content::all();
         $this->data['contacts'] = Contact::all();
         $this->data['faq'] = Question::where('active',1)->get();
@@ -44,6 +46,7 @@ class StaticController extends Controller
             $menu[$slug] = ['scroll' => $slug, 'name' => $item->head];
 
             if (!$k) $menu['advantages'] = ['scroll' => 'advantages', 'name' => trans('menu.advantages')];
+            elseif ($k == 1) $menu['news'] = ['scroll' => 'news', 'name' => trans('menu.news')];
         }
         $menu['faq'] = ['scroll' => 'faq', 'name' => trans('menu.faq')];
         $menu['contacts'] = ['scroll' => 'contacts', 'name' => trans('menu.contacts')];

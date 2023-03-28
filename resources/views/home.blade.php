@@ -63,7 +63,7 @@
                 <img src="{{ asset('images/contents/bad_to_good.jpg') }}" />
             </div>
             <div class="col-md-8 col-sm-6 col-xs-12 px-5">
-                <p>{{ $content[0]->text }}</p>
+                {!! $content[0]->text !!}
             </div>
         </x-row>
     </x-section>
@@ -84,15 +84,32 @@
         <x-row>
             @include('blocks._color_section_image_content_block',[
                 'image' => asset('images/contents/'.$content[1]->image),
+                'imageCol' => 6,
                 'head' => $content[1]->head,
                 'text' => $content[1]->text
             ])
         </x-row>
     </x-section>
 
-    <x-section class="white" wow_delay=".1" data-scroll-destination="{{ Str::slug($content[2]->head) }}" head="{{ $content[2]->head }}">
+    <x-section class="white" wow_delay=".1" data-scroll-destination="{{ $menu['news']['scroll'] }}" head="{{ $menu['news']['name'] }}">
+        <x-row>
+            @foreach($news as $k => $new)
+                <div class="wow animate__animated animate__fadeIn col-lg-4 col-md-6 my-2" data-wow-delay="{{ ($k+1) * 0.5 }}s">
+                    <div class="news-entry-contents">
+                        <div class="news-date">{{ date('d.m.Y',$new->time) }}</div>
+                        <div class="image-cover" bg="{{ asset('images/news/news'.$new->id.'.jpg') }}"></div>
+                        <h2>{{ $new->head }}</h2>
+                        <p class="my-3">{{ $new->text }}</p>
+                    </div>
+                </div>
+            @endforeach
+        </x-row>
+    </x-section>
+    <hr>
+    <x-section wow_delay=".1" data-scroll-destination="{{ Str::slug($content[2]->head) }}" head="{{ $content[2]->head }}">
         <x-row>
             @include('blocks._white_section_image_content_block',[
+                'colImage' => 3,
                 'image' => asset('images/contents/'.$content[2]->image),
                 'text' => $content[2]->text
             ])

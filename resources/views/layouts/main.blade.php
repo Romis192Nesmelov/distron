@@ -26,7 +26,6 @@
 {{--    <link rel="stylesheet" type="text/css" href="{{ asset('css/owl.theme.default.min.css') }}" />--}}
     <!-- Custom styles -->
     <link rel="stylesheet" type="text/css" href="{{ asset('css/styles.css') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}" />
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
@@ -45,6 +44,7 @@
 {{--    <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>--}}
     <script type="text/javascript" src="{{ asset('js/feedback.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/setbackground.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.js') }}"></script>
 </head>
 

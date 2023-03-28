@@ -4,8 +4,54 @@ $(document).ready(function () {
         padding: 3
     });
     window.token = $('input[name=_token]').val();
+
     // Phone mask
     $('input[name=phone]').mask("+7(999)999-99-99");
+
+    // Single picker
+    $('.daterange-single').daterangepicker({
+        singleDatePicker: true,
+        locale: {
+            format: 'DD/MM/YYYY'
+        }
+    });
+
+    // Table setup
+    // ------------------------------
+
+    // Setting datatable defaults
+    $.extend( $.fn.dataTable.defaults, {
+        autoWidth: false,
+        columnDefs: [{
+            orderable: false,
+            width: '100px',
+            targets: [ 6 ]
+        }],
+        dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+        language: {
+            search: '<span>Filter:</span> _INPUT_',
+            lengthMenu: '<span>Show:</span> _MENU_',
+            paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
+        },
+        drawCallback: function () {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').addClass('dropup');
+        },
+        preDrawCallback: function() {
+            $(this).find('tbody tr').slice(-3).find('.dropdown, .btn-group').removeClass('dropup');
+        }
+    });
+
+
+    // Basic datatable
+    $('.datatable-basic').DataTable();
+
+    // Alternative pagination
+    $('.datatable-pagination').DataTable({
+        pagingType: "simple",
+        language: {
+            paginate: {'next': 'Next &rarr;', 'previous': '&larr; Prev'}
+        }
+    });
 
     // Preview upload image
     $('input[type=file]').change(function () {

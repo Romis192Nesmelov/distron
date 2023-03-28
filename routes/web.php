@@ -48,6 +48,10 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::post('/edit-icon', [AdminController::class, 'editIcon'])->name('edit_icon');
     Route::post('/delete-icon', [AdminController::class, 'deleteIcon'])->name('delete_icon');
 
+    Route::get('/news/{slug?}', [AdminController::class, 'news'])->name('news');
+    Route::post('/edit-news', [AdminController::class, 'editNews'])->name('edit_news');
+    Route::post('/delete-news', [AdminController::class, 'deleteNews'])->name('delete_news');
+
     Route::get('/contents', [AdminController::class, 'contents'])->name('contents');
     Route::post('/edit-content', [AdminController::class, 'editContent'])->name('edit_content');
 

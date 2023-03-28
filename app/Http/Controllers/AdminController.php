@@ -5,6 +5,7 @@ use App\Models\Accumulator;
 use App\Models\AccumulatorParam;
 use App\Models\Contact;
 use App\Models\Icon;
+use App\Models\News;
 use App\Models\Question;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
@@ -65,6 +66,13 @@ class AdminController extends Controller
                 'name' => trans('admin_menu.icons'),
                 'description' => trans('admin_menu.icons_description'),
                 'icon' => 'icon-people',
+            ],
+            'news' => [
+                'id' => 'news',
+                'href' => 'admin.news',
+                'name' => trans('admin_menu.news'),
+                'description' => trans('admin_menu.news_description'),
+                'icon' => 'icon-newspaper',
             ],
             'content' => [
                 'id' => 'content',
@@ -174,7 +182,7 @@ class AdminController extends Controller
 
     public function editAccumulator(Request $request)
     {
-        return $this->editSometing (
+        return $this->editSomething (
             $request,
             new Accumulator(),
             ['name' => $this->validationString],
@@ -259,22 +267,61 @@ class AdminController extends Controller
         );
     }
 
-    public function editicon(Request $request)
+    public function editIcon(Request $request)
     {
-        return $this->editSometing (
+        return $this->editSomething (
             $request,
             new Icon,
             ['title' => $this->validationString],
-            $this->validationPng,
+            $this->validationSvg,
             'images/icons/',
-            'icon%id%.png',
+            'icon%id%.svg',
             'icons'
         );
     }
 
-    public function deleteicon(Request $request)
+    public function deleteIcon(Request $request)
     {
         return $this->deleteSomething($request, new Icon());
+    }
+
+    public function news(Request $request, $slug=null)
+    {
+        return $this->getSomething(
+            $request,
+            new News(),
+            'news',
+            'news',
+            $slug,
+            'admin.edit_news',
+            'admin.adding_news',
+            'all_news',
+            'current_news'
+        );
+    }
+
+    public function editNews(Request $request)
+    {
+        $validationArr = [
+            'time' => $this->validationDate,
+            'head' => 'required|min:3|max:50',
+            'text' => 'required|min:5|max:255'
+        ];
+
+        return $this->editSomething (
+            $request,
+            new News,
+            $validationArr,
+            $this->validationJpg,
+            'images/news/',
+            'news%id%.jpg',
+            'news'
+        );
+    }
+
+    public function deleteNews(Request $request)
+    {
+        return $this->deleteSomething($request, new News());
     }
 
     public function contents(Request $request)
@@ -298,7 +345,7 @@ class AdminController extends Controller
             'text' => $this->validationText
         ];
 
-        return $this->editSometing (
+        return $this->editSomething (
             $request,
             new Content(),
             $validationArr,
@@ -331,7 +378,7 @@ class AdminController extends Controller
             'answer' => $this->validationText
         ];
 
-        return $this->editSometing (
+        return $this->editSomething (
             $request,
             new Question(),
             $validationArr,
@@ -369,7 +416,7 @@ class AdminController extends Controller
             'type' => 'required|integer|min:1|max:4'
         ];
 
-        return $this->editSometing (
+        return $this->editSomething (
             $request,
             new Contact(),
             $validationArr,
@@ -400,7 +447,7 @@ class AdminController extends Controller
         $this->data['menu_key'] = $menuKey;
         $this->breadcrumbs[] = $this->menu[$menuKey];
         if ($request->has('id')) {
-            $itemName = substr($itemName, 0, -1);
+            if ($itemName != 'news') $itemName = substr($itemName, 0, -1);
             $this->data[$itemName] = $model->find($request->input('id'));
             $this->breadcrumbs[] = [
                 'id' => $this->menu[$menuKey]['id'],
@@ -418,12 +465,13 @@ class AdminController extends Controller
             ];
             return $this->showView($viewForOne);
         } else {
-            $this->data[$itemName] = $model->all();
+            if ($model instanceof News) $this->data[$itemName] = $model->where('active',1)->orderBy('time','desc')->get();
+            else $this->data[$itemName] = $model->all();
             return $this->showView($viewForList);
         }
     }
 
-    private function editSometing (
+    private function editSomething (
         Request $request,
         Model $model,
         array $validationArr,
@@ -439,7 +487,7 @@ class AdminController extends Controller
             if ($validationImage && $request->hasFile('image')) $validationArr['image'] = $validationImage;
             $fields = $this->validate($request, $validationArr);
             $fields['active'] = isset($request->active) && $request->active ? 1 : 0;
-//            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
+            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
 
             $table = $model->find($request->input('id'));
             $table->update($fields);
@@ -447,9 +495,17 @@ class AdminController extends Controller
             if ($validationImage) $validationArr['image'] = 'required|'.$validationImage;
             $fields = $this->validate($request, $validationArr);
             $fields['active'] = $request->active ? 1 : 0;
-//            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
+            if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
 
             $table = $model->create($fields);
+
+            if ($model instanceof News) {
+                $news = News::where('active',1)->orderBy('time','asc')->get();
+                if (count($news) > 6) {
+                    $news[0]->delete();
+                    unlink(base_path('public/images/news/news' . $news[0]->id . '.jpg'));
+                }
+            }
         }
 
         if ($validationImage && $request->hasFile('image')) {
@@ -471,7 +527,9 @@ class AdminController extends Controller
         $table = $model->find($request->input('id'));
 
         if ($model instanceof Icon) {
-            unlink(base_path('public/images/icons/icon'.$table->id.'.png'));
+            unlink(base_path('public/images/icons/icon' . $table->id . '.png'));
+        } else if ($model instanceof News) {
+            unlink(base_path('public/images/news/news' . $table->id . '.jpg'));
         } elseif (isset($table->image) && $model->image && file_exists(base_path('public/'.$model->image))) {
             unlink(base_path('public/'.$model->image));
         } elseif (isset($table->images)) {

@@ -15,8 +15,8 @@ class ContactsSeeder extends Seeder
     public function run()
     {
         $data = [
-            ['contact' => 'Староваганьковский переулок, 15с3', 'type' => 1],
-            ['contact' => '+7(926)333-22-11', 'type' => 2],
+            ['contact' => 'Адрес: 127422, г.Москва, вн.тер. г.Муниципальный Округ Тимирязевский, ул.Тимирязевская, дом 8, корпус 1, квартира 37', 'type' => 1],
+//            ['contact' => '+7(926)333-22-11', 'type' => 2],
             ['contact' => 'info@distron.ru', 'type' => 3],
             ['contact' => '<iframe id="map" src="https://yandex.ru/map-widget/v1/?um=constructor%3A2e46a7c4af371d2653e709cb2dd429e6e9044779994ccf20fd13224e3919e106&amp;source=constructor" width="100%" height="450" frameborder="0"></iframe>', 'type' => 4],
         ];

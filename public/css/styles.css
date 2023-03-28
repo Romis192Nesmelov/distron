@@ -8,6 +8,10 @@ a {
     color: #009671;
 }
 
+p {
+    font-size: 1rem;
+}
+
 #loader {
     position: absolute;
     width: 100%;
@@ -200,7 +204,7 @@ hr {
 
 .section.color .row > div {
     display: flex;
-    align-items: center;
+    /*align-items: center;*/
     flex-direction: column;
     justify-content: center;
 }
@@ -236,6 +240,42 @@ hr {
 
 h2.accordion-header {
     margin-bottom: 0;
+}
+
+.news-entry-contents {
+    height: 480px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fbfbfb;
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.3);
+}
+
+.news-entry-contents p {
+    font-size: .8rem;
+}
+
+.news-entry-contents .image-cover {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: 3px solid #009671;
+}
+
+.news-date {
+    margin-bottom: 15px;
+    font-size: 12px;
+    text-align: right;
+    display: block;
+}
+
+.news-entry-contents h2 {
+    height: 30px;
+    margin-bottom: 5px;
+    color: #000;
+    /*text-transform: uppercase;*/
+    font-size: 18px;
 }
 
 /*.owl-dots {*/
@@ -282,6 +322,34 @@ input:focus {
 .contacts table td {
     padding: 5px;
     vertical-align: top;
+}
+
+.site-footer {
+    padding: 4em 0;
+    background-color: #c9ccd4;
+}
+
+.site-footer p,
+.site-footer .nav-link {
+    color: gray !important;
+}
+
+.site-footer ul li {
+    margin-bottom: 10px;
+}
+
+.site-footer a:hover {
+    color: #43ab92 !important;
+}
+
+.site-footer a {
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+.site-footer .footer-heading {
+    font-size: 16px;
+    color: #000;
 }
 
 @media (max-width: 1300px)  {

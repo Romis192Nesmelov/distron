@@ -24,6 +24,19 @@
     <script type="text/javascript" src="{{ asset('js/core/libraries/bootstrap.min.js') }}"></script>
     <!-- /core JS files -->
 
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/forms/inputs/typeahead/typeahead.bundle.min.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/forms/inputs/typeahead/handlebars.min.js') }}"></script>--}}
+
+    <script type="text/javascript" src="{{ asset('js/plugins/tables/datatables/datatables.min.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/plugins/ui/moment/moment.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/pickers/daterangepicker.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/plugins/pickers/anytime.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/picker.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/picker.date.js') }}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-switch.js') }}"></script>
@@ -34,8 +47,10 @@
     <script type="text/javascript" src="{{ asset('js/fancybox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.maskedinput.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/main.controls.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/admin.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/setbackground.js') }}"></script>
 </head>
 
 <body>
@@ -59,7 +74,7 @@
         <ul class="nav navbar-nav navbar-right">
             @include('admin.blocks._dropdown_menu_item_block',[
                 'menuName' => Auth::user()->email,
-                'menu' => [['href' => route('logout'), 'icon' => 'icon-switch2', 'text' => trans('content.exit')]]
+                'menu' => [['href' => route('logout'), 'icon' => 'icon-switch2', 'text' => trans('admin.exit')]]
             ])
 
 {{--            @include('admin.blocks._dropdown_menu_item_block',[--}}
