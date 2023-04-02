@@ -118,10 +118,10 @@
 
     <x-section class="color color2" wow_delay=".1">
         <x-row>
-            <div class="col-md-4 col-sm-6 col-xs-12 mb-3 image">
+            <div class="col-md-4 col-sm-4 col-xs-12 mb-3 image">
                 <img src="{{ asset('images/distron_shim.png') }}" />
             </div>
-            <div class="col-md-8 col-sm-6 col-xs-12">
+            <div class="col-md-8 col-sm-8 col-xs-12">
                 <h2>{{ trans('content.leave_request') }}</h2>
                 <form class="form useAjax col-12" action="{{ route('request') }}">
                     @csrf

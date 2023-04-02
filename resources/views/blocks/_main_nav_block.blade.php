@@ -1,7 +1,7 @@
 <nav id="{{ $mainId }}" class="navbar navbar-expand-lg">
 {{--    <a class="navbar-brand" href="#">Navbar</a>--}}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#{{ $collapseId }}" aria-controls="{{ $collapseId }}" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="icon-list"></i>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#{{ $collapseId }}" aria-controls="{{ $collapseId }}" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fa fa-navicon"></i>
     </button>
     <div class="collapse navbar-collapse" id="{{ $collapseId }}">
         <ul class="navbar-nav mr-auto">

@@ -183,6 +183,15 @@ hr {
     background-image: url("../images/color_section1.jpg");
 }
 
+.section.color1 h2 {
+    margin-bottom: 20px;
+}
+
+.section.color1 p {
+    /*line-height: 1.25em;*/
+    margin-bottom: .2em;
+}
+
 .section.color2 {
     padding-top: 70px;
     padding-bottom: 70px;
@@ -198,9 +207,9 @@ hr {
     padding-top: 0 !important;
 }
 
-.section.icons {
-    padding-bottom: 0 !important;
-}
+/*.section.icons {*/
+/*    padding-bottom: 0 !important;*/
+/*}*/
 
 .section.color .row > div {
     display: flex;
@@ -211,12 +220,15 @@ hr {
 
 .navbar-toggler {
     border: 1px solid white;
-    color: black;
 }
 
-.navbar-toggler i {
+.navbar-toggler:focus {
+    box-shadow: 2px 2px 1px rgba(0, 150, 113, 1);
+}
+
+.fa-navicon {
+    font-size: 1em;
     color: white;
-    margin: 3px;
 }
 
 .nav-item.active {
@@ -243,7 +255,7 @@ h2.accordion-header {
 }
 
 .news-entry-contents {
-    height: 480px;
+    height: 520px;
     padding: 20px;
     border-radius: 10px;
     background-color: #fbfbfb;
@@ -358,6 +370,10 @@ input:focus {
         top: 250px;
     }
 
+    .nav-link {
+        font-size: 13px;
+    }
+
     .section.color {
         background-size: 120% 100%;
     }
@@ -367,20 +383,20 @@ input:focus {
     }
 
     .section.color h2 {
-        margin-top: 150px;
+        margin-top: 50px;
     }
 
-    .section.color p {
+    .section.color p:last-child {
         margin-bottom: 50px;
     }
 }
 
 @media (max-width: 1000px)  {
-    .section.color h2 {
-        margin-top: 180px;
-    }
+    /*.section.color h2 {*/
+    /*    margin-top: 180px;*/
+    /*}*/
 
-    .section.color p {
+    .section.color p:last-child {
         margin-bottom: 80px;
     }
 }
@@ -388,6 +404,18 @@ input:focus {
 @media (max-width: 768px)  {
     .slider h3 {
         margin-top: 30px;
+    }
+
+    /*.section.color h2 {*/
+    /*    margin-top: 0;*/
+    /*}*/
+
+    .section.color p:last-child {
+        margin-bottom: 100px;
+    }
+
+    form .btn.btn-primary {
+        width: 100%;
     }
 }
 
@@ -398,29 +426,16 @@ input:focus {
     }
 }
 
-@media (max-width: 992px)  {
+@media (max-width: 991px)  {
+    .navbar-collapse {
+        padding: 15px;
+        background-color: white;
+    }
+
     .nav-link {
         color: #009671 !important;
         font-weight: bold;
         text-shadow: none;
-    }
-}
-
-@media (max-width: 768px)  {
-    /*.owl-carousel .owl-nav {*/
-    /*    display: none;*/
-    /*}*/
-
-    .section.color h2 {
-        margin-top: 0;
-    }
-
-    .section.color p {
-        margin-bottom: 100px;
-    }
-
-    .portfolio-item {
-        display: table;
     }
 }
 

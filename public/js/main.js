@@ -140,7 +140,7 @@ function gotoScroll(scroll) {
 function fixingMainMenu(windowScroll, firstCall) {
     let mainMenu = $('#main-nav');
 
-    if (windowScroll > 55 && !parseInt(mainMenu.css('top'))) {
+    if (windowScroll > 55 && !parseInt(mainMenu.css('top')) && $(window).width() > 992) {
         mainMenu.addClass('top-fix').animate({'top':0}, 'slow');
     } else mainMenu.removeClass('top-fix');
 }
