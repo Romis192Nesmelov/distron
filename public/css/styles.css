@@ -255,7 +255,8 @@ h2.accordion-header {
 }
 
 .news-entry-contents {
-    height: 520px;
+    /*display: table;*/
+    /*height: 1px;*/
     padding: 20px;
     border-radius: 10px;
     background-color: #fbfbfb;

@@ -96,7 +96,12 @@ $(document).ready(function() {
     setTimeout(function () {
         windowScroll();
         fixingMainMenu($(window).scrollTop());
+        maxHeightBlocks($('.news-entry-contents'));
     }, 1000);
+
+    $(window).resize(function () {
+        maxHeightBlocks($('.news-entry-contents'));
+    });
 });
 
 function windowScroll() {
@@ -143,6 +148,22 @@ function fixingMainMenu(windowScroll, firstCall) {
     if (windowScroll > 55 && !parseInt(mainMenu.css('top')) && $(window).width() > 992) {
         mainMenu.addClass('top-fix').animate({'top':0}, 'slow');
     } else mainMenu.removeClass('top-fix');
+}
+
+function maxHeightBlocks(blocks) {
+    let maxHeight = 0;
+    blocks.css({
+        'height':1,
+        'display':'table'
+    });
+    blocks.each(function () {
+        if ($(this).height() > maxHeight) maxHeight = $(this).height()+20;
+    });
+    console.log(maxHeight);
+    blocks.css({
+        'height':maxHeight,
+        'display':'block'
+    });
 }
 
 // function getQueryParams(qs) {
