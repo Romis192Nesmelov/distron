@@ -157,7 +157,7 @@ function maxHeightBlocks(blocks) {
         'display':'table'
     });
     blocks.each(function () {
-        if ($(this).height() > maxHeight) maxHeight = $(this).height()+20;
+        if ($(this).height() > maxHeight) maxHeight = $(this).height()+30;
     });
     console.log(maxHeight);
     blocks.css({
