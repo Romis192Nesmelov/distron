@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Accumulator;
-use App\Models\AccumulatorParam;
 use App\Models\Contact;
 use App\Models\News;
 use App\Models\Question;
@@ -20,10 +18,8 @@ class StaticController extends Controller
 
     public function index()
     {
-        $this->data['accumulators'] = Accumulator::where('active',1)->get();
-        $this->data['params'] = AccumulatorParam::all();
         $this->data['icons'] = Icon::where('active',1)->get();
-        $this->data['news'] = News::where('active',1)->get();
+        $this->data['news'] = News::where('active',1)->orderBy('time','desc')->get();
         $this->data['content'] = Content::all();
         $this->data['contacts'] = Contact::all();
         $this->data['faq'] = Question::where('active',1)->get();
@@ -39,7 +35,6 @@ class StaticController extends Controller
 
     private function showView($view)
     {
-        $menu = ['calculator' => ['scroll' => 'calculator', 'name' => trans('menu.calculator')]];
         $content = Content::all();
         foreach ($content as $k => $item) {
             $slug = Str::slug($item->head);

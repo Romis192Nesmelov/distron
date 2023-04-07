@@ -14,9 +14,9 @@ $(document).ready(function() {
     });
     wow.init();
 
-    $('.select').select2({
-        minimumResultsForSearch: Infinity
-    });
+    // $('.select').select2({
+    //     minimumResultsForSearch: Infinity
+    // });
 
     // $('#slider-voltage').ionRangeSlider({
     //     grid: true,
@@ -157,9 +157,8 @@ function maxHeightBlocks(blocks) {
         'display':'table'
     });
     blocks.each(function () {
-        if ($(this).height() > maxHeight) maxHeight = $(this).height()+30;
+        if ($(this).height() > maxHeight) maxHeight = $(this).height()+50;
     });
-    console.log(maxHeight);
     blocks.css({
         'height':maxHeight,
         'display':'block'

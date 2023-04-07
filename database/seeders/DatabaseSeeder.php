@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(SettingsSeeder::class);
-        $this->call(AccumulatorsSeeder::class);
-        $this->call(AccumulatorParamsSeeder::class);
         $this->call(IconsSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(ContentsSeeder::class);

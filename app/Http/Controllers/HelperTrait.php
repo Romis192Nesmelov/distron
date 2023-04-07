@@ -12,7 +12,7 @@ trait HelperTrait
     public $validationString = 'required|min:3|max:255';
     public $validationText = 'required|min:5|max:1200';
     public $validationCalculator = 'required|integer|min:0|max:50';
-//    public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
+    public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
     public $validationSvg = 'required|mimes:svg|max:10';
     public $validationJpgAndPng = 'mimes:jpg,png|max:2000';
     public $validationJpg = 'mimes:jpg|max:2000';

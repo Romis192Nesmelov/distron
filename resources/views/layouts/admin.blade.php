@@ -36,13 +36,12 @@
     <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/picker.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/pickers/pickadate/picker.date.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/switchery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-switch.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/bootstrap-toggle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins/sliders/ion_rangeslider.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/sliders/ion_rangeslider.min.js') }}"></script>--}}
 
     <script type="text/javascript" src="{{ asset('js/fancybox.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('ckeditor/ckeditor.js') }}"></script>

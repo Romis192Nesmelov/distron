@@ -9,12 +9,12 @@ $(document).ready(function () {
     $('input[name=phone]').mask("+7(999)999-99-99");
 
     // Single picker
-    $('.daterange-single').daterangepicker({
-        singleDatePicker: true,
-        locale: {
-            format: 'DD/MM/YYYY'
-        }
-    });
+    // $('.daterange-single').daterangepicker({
+    //     singleDatePicker: true,
+    //     locale: {
+    //         format: 'DD/MM/YYYY'
+    //     }
+    // });
 
     // Table setup
     // ------------------------------
@@ -29,8 +29,8 @@ $(document).ready(function () {
         }],
         dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
         language: {
-            search: '<span>Filter:</span> _INPUT_',
-            lengthMenu: '<span>Show:</span> _MENU_',
+            search: '<span>Фильтр:</span> _INPUT_',
+            lengthMenu: '<span>Показывать:</span> _MENU_',
             paginate: { 'first': 'First', 'last': 'Last', 'next': '&rarr;', 'previous': '&larr;' }
         },
         drawCallback: function () {

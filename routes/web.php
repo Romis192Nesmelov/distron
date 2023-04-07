@@ -37,13 +37,6 @@ Route::prefix('admin')->middleware(['auth'])->name('admin.')->group(function () 
     Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
     Route::post('/edit-settings', [AdminController::class, 'editSettings'])->name('edit_settings');
 
-    Route::get('/accumulators/{slug?}', [AdminController::class, 'accumulators'])->name('accumulators');
-    Route::post('/edit-accumulator', [AdminController::class, 'editAccumulator'])->name('edit_accumulator');
-    Route::post('/delete-accumulator', [AdminController::class, 'deleteAccumulator'])->name('delete_accumulator');
-
-    Route::get('/calculator', [AdminController::class, 'calculator'])->name('calculator');
-    Route::post('/edit-calculator', [AdminController::class, 'editCalculator'])->name('edit_calculator');
-
     Route::get('/icons/{slug?}', [AdminController::class, 'icons'])->name('icons');
     Route::post('/edit-icon', [AdminController::class, 'editIcon'])->name('edit_icon');
     Route::post('/delete-icon', [AdminController::class, 'deleteIcon'])->name('delete_icon');

@@ -31,7 +31,6 @@
                             ])
                             @include('admin.blocks._textarea_block',[
                                 'required' => true,
-                                'simple' => true,
                                 'name' => 'text',
                                 'label' => trans('admin.news_content'),
                                 'value' => isset($data['news']) ? $data['news']->text : ''

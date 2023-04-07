@@ -37,9 +37,9 @@
     <script type="text/javascript" src="{{ asset('js/jquery.easing.1.3.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/fancybox.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/core/libraries/jquery_ui/interactions.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/plugins/sliders/ion_rangeslider.min.js') }}"></script>
+{{--    <script type="text/javascript" src="{{ asset('js/core/libraries/jquery_ui/interactions.min.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/forms/selects/select2.min.js') }}"></script>--}}
+{{--    <script type="text/javascript" src="{{ asset('js/plugins/sliders/ion_rangeslider.min.js') }}"></script>--}}
 
 {{--    <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>--}}
 {{--    <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>--}}

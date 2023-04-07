@@ -81,14 +81,4 @@ return [
     'contact' => 'Contact',
     'map' => 'Map',
     'do_you_really_want_delete_this_contact' => 'Do you really want delete this contact?',
-
-    'edit_accumulator' => 'Edit accumulator',
-    'add_accumulator' => 'Add accumulator',
-    'adding_accumulator' => 'Adding accumulator',
-    'accumulator_status' => 'Accumulator status',
-    'accumulator_active' => 'Accumulator is active',
-    'accumulator_not_active' => 'Accumulator isn\'t active',
-    'do_you_really_want_delete_this_accumulator' => 'Do you really want delete this accumulator?',
-
-    'edit_calculator' => 'Edit calculator',
 ];

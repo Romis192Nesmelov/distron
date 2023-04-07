@@ -293,8 +293,8 @@ h2.accordion-header {
 }
 
 .news-entry-contents h2 {
-    height: 30px;
     margin-bottom: 5px;
+    display: table;
     color: #000;
     /*text-transform: uppercase;*/
     font-size: 18px;
@@ -412,9 +412,9 @@ input:focus {
 }
 
 @media (max-width: 768px)  {
-    .slider h3 {
-        margin-top: 30px;
-    }
+    /*.slider h3 {*/
+    /*    margin-top: 30px;*/
+    /*}*/
 
     /*.section.color h2 {*/
     /*    margin-top: 0;*/

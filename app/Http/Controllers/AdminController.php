@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Accumulator;
-use App\Models\AccumulatorParam;
 use App\Models\Contact;
 use App\Models\Icon;
 use App\Models\News;
@@ -45,20 +43,6 @@ class AdminController extends Controller
                 'name' => trans('admin_menu.settings'),
                 'description' => trans('admin_menu.settings_description'),
                 'icon' => 'icon-gear',
-            ],
-            'accumulators' => [
-                'id' => 'accumulators',
-                'href' => 'admin.accumulators',
-                'name' => trans('admin_menu.accumulators'),
-                'description' => trans('admin_menu.accumulators_description'),
-                'icon' => 'icon-battery-charging',
-            ],
-            'calculator' => [
-                'id' => 'calculator',
-                'href' => 'admin.calculator',
-                'name' => trans('admin_menu.calculator'),
-                'description' => trans('admin_menu.calculator_description'),
-                'icon' => 'icon-equalizer',
             ],
             'icons' => [
                 'id' => 'icons',
@@ -165,77 +149,6 @@ class AdminController extends Controller
         return $this->showView('settings');
     }
 
-    public function accumulators(Request $request, $slug=null)
-    {
-        return $this->getSomething(
-            $request,
-            new Accumulator(),
-            'accumulators',
-            'accumulators',
-            $slug,
-            'admin.edit_accumulator',
-            'admin.adding_accumulator',
-            'accumulators',
-            'accumulator'
-        );
-    }
-
-    public function editAccumulator(Request $request)
-    {
-        return $this->editSomething (
-            $request,
-            new Accumulator(),
-            ['name' => $this->validationString],
-            $this->validationPng,
-            '',
-            '',
-            'accumulators'
-        );
-    }
-
-    public function calculator(Request $request, $slug=null)
-    {
-        return $this->getSomething(
-            $request,
-            new AccumulatorParam(),
-            'calculator',
-            'params',
-            null,
-            'admin.edit_calculator',
-            '',
-            'calculator',
-            ''
-        );
-    }
-
-    public function editCalculator(Request $request)
-    {
-        $fields = $this->validate($request, [
-            'voltage_from' => $this->validationCalculator,
-            'voltage_to' => $this->validationCalculator,
-            'resistance_from' => $this->validationCalculator,
-            'resistance_to' => $this->validationCalculator,
-        ]);
-
-        $params = AccumulatorParam::all();
-        $params[0]->update([
-            'min' => $fields['voltage_from'],
-            'max' => $fields['voltage_to']
-        ]);
-
-        $params[1]->update([
-            'min' => $fields['resistance_from'],
-            'max' => $fields['resistance_to']
-        ]);
-        $this->saveCompleteMessage();
-        return redirect(route('admin.calculator'));
-    }
-
-    public function deleteAccumulator(Request $request)
-    {
-        return $this->deleteSomething($request, new Accumulator());
-    }
-
     public function editSettings(Request $request)
     {
         $validationArr = ['title' => $this->validationString];
@@ -304,8 +217,8 @@ class AdminController extends Controller
     {
         $validationArr = [
             'time' => $this->validationDate,
-            'head' => 'required|min:3|max:50',
-            'text' => 'required|min:5|max:255'
+            'head' => $this->validationString,
+            'text' => $this->validationText
         ];
 
         return $this->editSomething (

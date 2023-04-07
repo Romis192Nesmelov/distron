@@ -22,11 +22,6 @@ return [
     'call_back' => 'Call back!',
     'i_agree' => 'I agree to the processing of personal data',
 
-    'accumulator_type' => 'Accumulator type',
-    'voltage' => 'Voltage (V)',
-    'resistance' => 'Resistance (mOm)',
-    'value' => 'Value'
-
 //    'in_russian' => ' in russian',
 //    'in_english' => ' in english',
 ];

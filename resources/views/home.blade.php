@@ -51,12 +51,6 @@
         <img class="wow animate__animated animate__fadeIn" data-wow-delay="0.5s" id="main-image" src="{{ asset('images/battery.png') }}" />
     </div>
 
-    <x-section wow_delay=".1" data-scroll-destination="{{ $menu['calculator']['scroll'] }}" head="{{ $menu['calculator']['name'] }}">
-        <x-row>
-            @include('blocks._calculator_block')
-        </x-row>
-    </x-section>
-    <hr>
     <x-section wow_delay=".1" data-scroll-destination="{{ Str::slug($content[0]->head) }}" head="{{ $content[0]->head }}">
         <x-row>
             <div class="col-md-4 col-sm-6 col-xs-12 image">
@@ -99,7 +93,9 @@
                         <div class="news-date">{{ date('d.m.Y',$new->time) }}</div>
                         <div class="image-cover" bg="{{ asset('images/news/news'.$new->id.'.jpg') }}"></div>
                         <h2>{{ $new->head }}</h2>
-                        <p class="my-3">{{ $new->text }}</p>
+                        <div class="my-3">
+                            {!! $new->text !!}
+                        </div>
                     </div>
                 </div>
             @endforeach

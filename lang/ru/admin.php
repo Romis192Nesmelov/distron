@@ -81,14 +81,4 @@ return [
     'contact' => 'Контакт',
     'map' => 'Карта',
     'do_you_really_want_delete_this_contact' => 'Вы действительно хотите удалить этот контакт?',
-
-    'edit_accumulator' => 'Редактирование аккумулятора',
-    'add_accumulator' => 'Добавить аккумулятор',
-    'adding_accumulator' => 'Добавление аккумулятора',
-    'accumulator_status' => 'Статус аккумулятора',
-    'accumulator_active' => 'Аккумулятор активен',
-    'accumulator_not_active' => 'Аккумулятор не активен',
-    'do_you_really_want_delete_this_accumulator' => 'Вы действительно хотите удалить этот аккумулятор?',
-
-    'edit_calculator' => 'Редактирование калькулятора',
 ];

@@ -16,8 +16,8 @@ return new class extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->id();
             $table->integer('time');
-            $table->string('head',50);
-            $table->string('text');
+            $table->string('head');
+            $table->text('text');
             $table->boolean('active');
             $table->timestamps();
         });
