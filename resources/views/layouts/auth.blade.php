@@ -19,16 +19,16 @@
 
     <!-- Core JS files -->
     {{--<script type="text/javascript" src="/js/plugins/loaders/pace.min.js"></script>--}}
-    <script type="text/javascript" src="{{ asset('js/admin/core/libraries/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/core/libraries/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/libraries/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/libraries/bootstrap.min.js') }}"></script>
     {{--<script type="text/javascript" src="/js/admin/plugins/loaders/blockui.min.js"></script>--}}
     <!-- /core JS files -->
 
     <!-- Theme JS files -->
-    <script type="text/javascript" src="{{ asset('js/admin/plugins/forms/styling/uniform.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/plugins/forms/styling/uniform.min.js') }}"></script>
 
-    <script type="text/javascript" src="{{ asset('js/admin/core/app.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('js/admin/pages/login.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/core/app.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/login.js') }}"></script>
     <!-- /theme JS files -->
 
 </head>
