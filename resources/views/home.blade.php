@@ -53,10 +53,10 @@
 
     <x-section wow_delay=".1" data-scroll-destination="{{ Str::slug($content[0]->head) }}" head="{{ $content[0]->head }}">
         <x-row>
-            <div class="col-md-4 col-sm-6 col-xs-12 image">
-                <img src="{{ asset('images/contents/bad_to_good.jpg') }}" />
+            <div class="col-12 col-lg-4 image">
+                <img src="{{ asset($content[0]->images[0]->preview) }}" />
             </div>
-            <div class="col-md-8 col-sm-6 col-xs-12 px-5">
+            <div class="col-12 col-lg-8">
                 {!! $content[0]->text !!}
             </div>
         </x-row>
@@ -75,9 +75,9 @@
     </x-section>
 
     <x-section class="color color1" wow_delay=".1" data-scroll-destination="{{ Str::slug($content[1]->head) }}">
-        <x-row>
+        <x-row class="pb-4 pt-4 d-flex justify-content-center">
             @include('blocks._color_section_image_content_block',[
-                'image' => asset('images/contents/'.$content[1]->image),
+                'images' => $content[1]->images,
                 'imageCol' => 6,
                 'head' => $content[1]->head,
                 'text' => $content[1]->text
@@ -106,7 +106,7 @@
         <x-row>
             @include('blocks._white_section_image_content_block',[
                 'colImage' => 3,
-                'image' => asset('images/contents/'.$content[2]->image),
+                'image' => asset($content[2]->images[0]->preview),
                 'text' => $content[2]->text
             ])
         </x-row>

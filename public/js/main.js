@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    $('a.img-preview').fancybox({
+    $('a.fancybox').fancybox({
         padding: 3
     });
 

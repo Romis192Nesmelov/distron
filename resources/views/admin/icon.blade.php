@@ -12,7 +12,7 @@
                         <div class="col-md-2 col-sm-3 col-xs-12">
                             @include('admin.blocks._input_image_block',[
                                 'name' => 'image',
-                                'preview' => isset($data['icon']) ? asset('images/icons/icon'.$data['icon']->id.'.png') : ''
+                                'preview' => isset($data['icon']) ? asset('images/icons/icon'.$data['icon']->id.'.svg') : ''
                             ])
                         </div>
                         <div class="col-md-10 col-sm-9 col-xs-12">

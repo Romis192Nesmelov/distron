@@ -21,7 +21,7 @@
 
                 @foreach ($data['icons'] as $icon)
                     <tr role="row" id="{{ 'icon_'.$icon->id }}">
-                        <td class="image"><a class="img-preview" href="{{ asset('images/icons/icon'.$icon->id.'.png') }}"><img src="{{ asset('images/icons/icon'.$icon->id.'.png') }}" /></a></td>
+                        <td class="image"><a class="img-preview" href="{{ asset('images/icons/icon'.$icon->id.'.png') }}"><img src="{{ asset('images/icons/icon'.$icon->id.'.svg') }}" /></a></td>
                         <td class="text-center head">{{ $icon->title }}</td>
                         <td class="text-center">
                             @include('admin.blocks._status_block',[

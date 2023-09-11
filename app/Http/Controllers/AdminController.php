@@ -5,11 +5,15 @@ use App\Models\Contact;
 use App\Models\Icon;
 use App\Models\News;
 use App\Models\Question;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\Content;
+use Illuminate\View\View;
+
 //use Illuminate\Support\Str;
 
 class AdminController extends Controller
@@ -83,12 +87,12 @@ class AdminController extends Controller
         $this->breadcrumbs[] = $this->menu['home'];
     }
 
-    public function home()
+    public function home(): View
     {
         return $this->showView('home');
     }
 
-    public function users(Request $request, $slug=null)
+    public function users(Request $request, $slug=null): View
     {
         $this->data['menu_key'] = 'users';
         $this->breadcrumbs[] = $this->menu['users'];
@@ -115,7 +119,7 @@ class AdminController extends Controller
         }
     }
 
-    public function editUser(Request $request)
+    public function editUser(Request $request): RedirectResponse
     {
         $validationArr = ['email' => 'required|email|unique:users,email'];
         if ($request->has('id')) {
@@ -136,12 +140,12 @@ class AdminController extends Controller
         return redirect(route('admin.users'));
     }
 
-    public function deleteUser(Request $request)
+    public function deleteUser(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new User());
     }
 
-    public function settings()
+    public function settings(): View
     {
         $this->breadcrumbs[] = $this->menu['settings'];
         $this->data['metas'] = $this->metas;
@@ -149,7 +153,7 @@ class AdminController extends Controller
         return $this->showView('settings');
     }
 
-    public function editSettings(Request $request)
+    public function editSettings(Request $request): RedirectResponse
     {
         $validationArr = ['title' => $this->validationString];
 
@@ -165,85 +169,82 @@ class AdminController extends Controller
         return redirect(route('admin.settings'));
     }
 
-    public function icons(Request $request, $slug=null)
+    public function icons(Request $request, $slug=null): View
     {
         return $this->getSomething(
             $request,
             new Icon(),
             'icons',
             'icons',
-            null,
             'admin.edit_icon',
             'admin.adding_icon',
             'icons',
-            'icon'
+            'icon',
+            $slug
         );
     }
 
-    public function editIcon(Request $request)
+    public function editIcon(Request $request): RedirectResponse
     {
-        return $this->editSomething (
+        $icon = $this->editSomething (
             $request,
             new Icon,
-            ['title' => $this->validationString],
-            $this->validationSvg,
-            'images/icons/',
-            'icon%id%.svg',
-            'icons'
+            [
+                'title' => $this->validationString,
+                'image' => $request->has('id') ? $this->validationSvg : 'required|'.$this->validationSvg
+            ],
         );
+        $this->processingFile($request,'image', 'images/icons/', 'icon'.$icon->id.'.svg');
+        return redirect(route('admin.icons'));
     }
 
-    public function deleteIcon(Request $request)
+    public function deleteIcon(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Icon());
     }
 
-    public function news(Request $request, $slug=null)
+    public function news(Request $request, $slug=null): View
     {
         return $this->getSomething(
             $request,
             new News(),
             'news',
             'news',
-            $slug,
             'admin.edit_news',
             'admin.adding_news',
             'all_news',
-            'current_news'
+            'current_news',
+            $slug
         );
     }
 
-    public function editNews(Request $request)
+    public function editNews(Request $request): RedirectResponse
     {
-        $validationArr = [
-            'time' => $this->validationDate,
-            'head' => $this->validationString,
-            'text' => $this->validationText
-        ];
-
-        return $this->editSomething (
+        $news = $this->editSomething (
             $request,
             new News,
-            $validationArr,
-            $this->validationJpg,
-            'images/news/',
-            'news%id%.jpg',
-            'news'
+            [
+                'time' => $this->validationDate,
+                'head' => $this->validationString,
+                'text' => $this->validationText,
+                'image' => $request->has('id') ? $this->validationJpg : 'required|'.$this->validationJpg
+            ]
         );
+        $this->processingFile($request,'image', 'images/news/', 'news'.$news->id.'.jpg');
+        return redirect(route('admin.news'));
     }
 
-    public function deleteNews(Request $request)
+    public function deleteNews(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new News());
     }
 
-    public function contents(Request $request)
+    public function contents(Request $request): View
     {
         return $this->getSomething(
             $request,new Content(),
             'content',
             'contents',
-            null,
             'admin.edit_content',
             '',
             'contents',
@@ -251,96 +252,85 @@ class AdminController extends Controller
         );
     }
 
-    public function editContent(Request $request)
+    public function editContent(Request $request): RedirectResponse
     {
-        $validationArr = [
-            'head' => $this->validationString,
-            'text' => $this->validationText
-        ];
-
-        return $this->editSomething (
+        $content = $this->editSomething (
             $request,
             new Content(),
-            $validationArr,
-            $this->validationJpgAndPng,
-            'images/contents/',
-            '',
-            'contents'
+            [
+                'head' => $this->validationString,
+                'text' => $this->validationText
+            ]
         );
+        for ($i=0;$i<count($content->images);$i++) {
+            $this->processingFile($request,'preview'.$i, 'images/contents/', pathinfo($content->images[$i]->preview)['basename']);
+            $this->processingFile($request,'full'.$i, 'images/contents/', pathinfo($content->images[$i]->full)['basename']);
+        }
+        return redirect(route('admin.contents'));
     }
 
-    public function faq(Request $request, $slug=null)
+    public function faq(Request $request, $slug=null): View
     {
         return $this->getSomething(
             $request,
             new Question(),
             'faq',
             'questions',
-            $slug,
             'admin.edit_question',
             'admin.adding_question',
             'questions',
-            'question'
+            'question',
+            $slug
         );
     }
 
-    public function editFaq(Request $request)
+    public function editFaq(Request $request): RedirectResponse
     {
-        $validationArr = [
-            'question' => $this->validationString,
-            'answer' => $this->validationText
-        ];
-
-        return $this->editSomething (
+        $this->editSomething (
             $request,
             new Question(),
-            $validationArr,
-            '',
-            '',
-            '',
-            'faq'
+            [
+                'question' => $this->validationString,
+                'answer' => $this->validationText
+            ]
         );
+        return redirect(route('admin.faq'));
     }
 
-    public function deleteFaq(Request $request)
+    public function deleteFaq(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Question());
     }
 
-    public function contacts(Request $request, $slug=null)
+    public function contacts(Request $request, $slug=null): View
     {
         return $this->getSomething(
             $request,
             new Contact(),
             'contacts',
             'contacts',
-            $slug,
             'admin.edit_contact',
             'admin.adding_contact',
             'contacts',
-            'contact'
+            'contact',
+            $slug
         );
     }
 
-    public function editContact(Request $request)
+    public function editContact(Request $request): RedirectResponse
     {
-        $validationArr = [
-            'contact' => $this->validationString,
-            'type' => 'required|integer|min:1|max:4'
-        ];
-
-        return $this->editSomething (
+        $this->editSomething (
             $request,
             new Contact(),
-            $validationArr,
-            '',
-            '',
-            '',
-            'contacts'
+            [
+                'contact' => $this->validationString,
+                'type' => 'required|integer|min:1|max:4'
+            ]
         );
+        return redirect(route('admin.contacts'));
     }
 
-    public function deleteContact(Request $request)
+    public function deleteContact(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Contact());
     }
@@ -350,12 +340,12 @@ class AdminController extends Controller
         Model $model,
         string $menuKey,
         string $itemName,
-        string $slug = null,
         string $editNameTitle,
         string $addNameTitle,
         string $viewForList,
-        string $viewForOne
-    )
+        string $viewForOne,
+        string $slug = null,
+    ): View
     {
         $this->data['menu_key'] = $menuKey;
         $this->breadcrumbs[] = $this->menu[$menuKey];
@@ -387,17 +377,12 @@ class AdminController extends Controller
     private function editSomething (
         Request $request,
         Model $model,
-        array $validationArr,
-        string $validationImage,
-        string $pathToImages,
-        string $imageName,
-        string $returnRoute
-    )
+        array $validationArr
+    ): Model
     {
         if ($request->has('id')) {
             $validationArr['id'] = 'required|integer|exists:'.$model->getTable().',id';
 
-            if ($validationImage && $request->hasFile('image')) $validationArr['image'] = $validationImage;
             $fields = $this->validate($request, $validationArr);
             $fields['active'] = isset($request->active) && $request->active ? 1 : 0;
             if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
@@ -405,7 +390,6 @@ class AdminController extends Controller
             $table = $model->find($request->input('id'));
             $table->update($fields);
         } else {
-            if ($validationImage) $validationArr['image'] = 'required|'.$validationImage;
             $fields = $this->validate($request, $validationArr);
             $fields['active'] = $request->active ? 1 : 0;
             if (isset($fields['time'])) $fields['time'] = $this->convertTime($fields['time']);
@@ -420,21 +404,11 @@ class AdminController extends Controller
                 }
             }
         }
-
-        if ($validationImage && $request->hasFile('image')) {
-
-            if ($model instanceof Content) {
-                $imageName = $request->file('image')->getClientOriginalName();
-                $table->image = $imageName;
-                $table->save();
-            } else $imageName = str_replace('%id%',$table->id,$imageName);
-            $this->processingFile($request,'image',$pathToImages,$imageName);
-        }
         $this->saveCompleteMessage();
-        return redirect(route('admin.'.$returnRoute));
+        return $table;
     }
 
-    private function deleteSomething(Request $request, Model $model)
+    private function deleteSomething(Request $request, Model $model): JsonResponse
     {
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
         $table = $model->find($request->input('id'));
@@ -456,7 +430,7 @@ class AdminController extends Controller
         return response()->json(['success' => true]);
     }
 
-    private function showView($view)
+    private function showView($view): View
     {
         return view('admin.'.$view, [
             'breadcrumbs' => $this->breadcrumbs,

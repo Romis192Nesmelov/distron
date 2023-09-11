@@ -95,13 +95,18 @@ hr {
     font-size: 20px;
 }
 
-.image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.photos-block {
+    margin-top: 50px;
 }
 
-.image > img {
+/*.image {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: center;*/
+/*}*/
+
+.image a,
+.image img {
     width: 100%;
 }
 
@@ -210,13 +215,6 @@ hr {
 /*.section.icons {*/
 /*    padding-bottom: 0 !important;*/
 /*}*/
-
-.section.color .row > div {
-    display: flex;
-    /*align-items: center;*/
-    flex-direction: column;
-    justify-content: center;
-}
 
 .navbar-toggler {
     border: 1px solid white;
@@ -386,10 +384,6 @@ input:focus {
 
     .section.color {
         background-size: 120% 100%;
-    }
-
-    .section.color {
-        padding-top: 0;
     }
 
     .section.color h2 {

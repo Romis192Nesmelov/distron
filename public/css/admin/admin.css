@@ -14,7 +14,6 @@ td.head {
     width: 15%;
     font-weight: bold;
     font-size: 15px;
-    text-align: left;
 }
 
 td.image img,
@@ -22,6 +21,10 @@ td.image img,
 .main-image img {
     width: 100%;
     border: 2px solid grey;
+}
+
+td.image .col-12 {
+    padding: 3px !important;
 }
 
 td.image .image-cover {

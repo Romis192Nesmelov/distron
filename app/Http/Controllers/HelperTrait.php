@@ -10,10 +10,10 @@ trait HelperTrait
     public $validationPassword = 'required|confirmed|min:3|max:50';
     public $validationInteger = 'required|integer';
     public $validationString = 'required|min:3|max:255';
-    public $validationText = 'required|min:5|max:1200';
+    public $validationText = 'required|min:5|max:5000';
     public $validationCalculator = 'required|integer|min:0|max:50';
     public $validationColor = 'regex:/^(hsv\((\d+)\,\s(\d+)\%\,\s(\d+)\%\))$/';
-    public $validationSvg = 'required|mimes:svg|max:10';
+    public $validationSvg = 'mimes:svg|max:10';
     public $validationJpgAndPng = 'mimes:jpg,png|max:2000';
     public $validationJpg = 'mimes:jpg|max:2000';
     public $validationPng = 'mimes:png|max:2000';
@@ -69,7 +69,7 @@ trait HelperTrait
     public function processingFile(Request $request, $field, $path, $newFileName)
     {
 //        $fileName = $request->file($field)->getClientOriginalName();
-        $request->file($field)->move(base_path('public/'.$path), $newFileName);
+        if ($request->hasFile($field)) $request->file($field)->move(base_path('public/'.$path), $newFileName);
     }
 
 //    private function fGetRGB($iH, $iS, $iV)
