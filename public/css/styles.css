@@ -140,6 +140,19 @@ hr {
     position: absolute;
 }
 
+#video {
+    width: 800px;
+    height: 450px;
+    right: 100px;
+    top: 120px;
+    position: absolute;
+    border: 2px solid #009671;
+    overflow: hidden;
+    background: white;
+    -webkit-filter: drop-shadow( 0px 0px 7px #000000);
+    filter: drop-shadow( 0rem 0px 7px #000000);
+}
+
 #main-nav {
     position: absolute;
     z-index: 999;
@@ -372,6 +385,20 @@ input:focus {
     color: #000;
 }
 
+@media (max-width: 1600px)  {
+    #video {
+        width: 711px;
+        height: 400px;
+        right: 50px;
+    }
+}
+
+@media (max-width: 1440px)  {
+    #video {
+        top: 220px;
+    }
+}
+
 @media (max-width: 1300px)  {
     #main-image {
         width: 400px;
@@ -395,6 +422,17 @@ input:focus {
     }
 }
 
+@media (max-width: 1100px)  {
+    #video {
+        width: 600px;
+        height: 337px;
+        top: 280px;
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+    }
+}
+
 @media (max-width: 1000px)  {
     /*.section.color h2 {*/
     /*    margin-top: 180px;*/
@@ -402,6 +440,19 @@ input:focus {
 
     .section.color p:last-child {
         margin-bottom: 80px;
+    }
+}
+
+@media (max-width: 991px)  {
+    .navbar-collapse {
+        padding: 15px;
+        background-color: white;
+    }
+
+    .nav-link {
+        color: #009671 !important;
+        font-weight: bold;
+        text-shadow: none;
     }
 }
 
@@ -430,16 +481,19 @@ input:focus {
     }
 }
 
-@media (max-width: 991px)  {
-    .navbar-collapse {
-        padding: 15px;
-        background-color: white;
+@media (max-width: 620px)  {
+    #video {
+        width: 500px;
+        height: 281px;
+        top: 320px;
     }
+}
 
-    .nav-link {
-        color: #009671 !important;
-        font-weight: bold;
-        text-shadow: none;
+@media (max-width: 520px)  {
+    #video {
+        width: 400px;
+        height: 225px;
+        top: 350px;
     }
 }
 
@@ -480,6 +534,14 @@ input:focus {
     }
 }
 
+@media (max-width: 420px)  {
+    #video {
+        width: 300px;
+        height: 168px;
+        top: 400px;
+    }
+}
+
 @media (max-width: 325px)  {
     #main-logo h1 {
         font-size: .8em;
@@ -488,5 +550,9 @@ input:focus {
 
     #main-logo .btn.btn-primary {
         margin-left: 85px;
+    }
+
+    #video {
+        display: none;
     }
 }
