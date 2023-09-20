@@ -553,6 +553,14 @@ input:focus {
     }
 
     #video {
-        display: none;
+        width: 250px;
+        height: 140px;
+    }
+}
+
+@media (max-width: 250px)  {
+    #video {
+        width: 200px;
+        height: 112px;
     }
 }
