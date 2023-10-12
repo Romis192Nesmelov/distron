@@ -51,6 +51,11 @@ trait HelperTrait
         'meta_google_site_verification' => ['name' => 'google-site-verification', 'property' => false],
     ];
 
+    public function getVideoHref(): string
+    {
+        return file_get_contents(base_path('public/video_href'));
+    }
+
     public function convertColor($color)
     {
         if (preg_match('/^(hsv\(\d+\, \d+\%\, \d+\%\))$/',$color)) {
@@ -69,6 +74,7 @@ trait HelperTrait
     public function processingFile(Request $request, $field, $path, $newFileName)
     {
 //        $fileName = $request->file($field)->getClientOriginalName();
+//        $fileName = $request->file($field)->getClientOriginalExtension();
         if ($request->hasFile($field)) $request->file($field)->move(base_path('public/'.$path), $newFileName);
     }
 

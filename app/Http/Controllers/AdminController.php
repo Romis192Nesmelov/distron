@@ -13,6 +13,7 @@ use App\Models\User;
 use App\Models\Setting;
 use App\Models\Content;
 use App\Models\Metric;
+use App\Models\Video;
 use Illuminate\View\View;
 
 //use Illuminate\Support\Str;
@@ -47,6 +48,13 @@ class AdminController extends Controller
                 'href' => 'admin.settings',
                 'name' => trans('admin_menu.settings'),
                 'description' => trans('admin_menu.settings_description'),
+                'icon' => 'icon-gear',
+            ],
+            'videos' => [
+                'id' => 'videos',
+                'href' => 'admin.videos',
+                'name' => trans('admin_menu.video'),
+                'description' => trans('admin_menu.video_description'),
                 'icon' => 'icon-gear',
             ],
             'icons' => [
@@ -175,6 +183,53 @@ class AdminController extends Controller
         $settings->update($fields);
         $this->saveCompleteMessage();
         return redirect(route('admin.settings'));
+    }
+
+    public function videos(Request $request, $slug=null): View
+    {
+        $this->data['video_href'] = $this->getVideoHref();
+        return $this->getSomething(
+            $request,
+            new Video(),
+            'videos',
+            'videos',
+            'admin.edit_video',
+            'admin.adding_video',
+            'videos',
+            'video',
+            $slug
+        );
+    }
+
+    public function editVideoHref(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['href' => $this->validationString]);
+        file_put_contents(base_path('public/video_href'), $request->href);
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    public function editVideoPoster(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['poster' => 'required|'.$this->validationJpg]);
+        $this->processingFile($request,'poster', 'images/', 'distron.jpg');
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    public function editVideo(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['video' => 'required|mimes:mp4,ogg,webm']);
+        $newFileName = 'distron.'.$request->file('video')->getClientOriginalExtension();
+        if (!file_exists(base_path('public/video/'.$newFileName))) Video::create(['path' => 'video/'.$newFileName]);
+        $this->processingFile($request,'video', 'video/', $newFileName);
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    public function deleteVideo(Request $request): JsonResponse
+    {
+        return $this->deleteSomething($request, new Video());
     }
 
     public function icons(Request $request, $slug=null): View
@@ -457,6 +512,8 @@ class AdminController extends Controller
             unlink(base_path('public/images/news/news' . $table->id . '.jpg'));
         } elseif (isset($table->image) && $model->image && file_exists(base_path('public/'.$model->image))) {
             unlink(base_path('public/'.$model->image));
+        } elseif (isset($table->path) && $model->path && file_exists(base_path('public/'.$model->path))) {
+            unlink(base_path('public/'.$model->path));
         } elseif (isset($table->images)) {
             foreach ($table->images as $image) {
                 if (file_exists(base_path('public/'.$image->preview))) unlink(base_path('public/'.$image->preview));

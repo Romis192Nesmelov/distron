@@ -51,16 +51,12 @@
 
         <div class="wow animate__animated animate__fadeIn" data-wow-delay="0.5s" id="video" controls="controls" poster="{{ asset('images/distron.jpg') }}">
             <video controls="controls" poster="{{ asset('images/distron.jpg') }}">
-                <source src="{{ asset('video/distron.mp4') }}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-                <source src="{{ asset('video/distron.ogg') }}" type='video/ogg; codecs="theora, vorbis"'>
-                <source src="{{ asset('video/distron.webm') }}" type='video/webm; codecs="vp8, vorbis"'>
+                @foreach ($video as $item)
+                    <source src="{{ asset($item->path) }}" type='video/{{ pathinfo($item->path)['extension'] }};'>
+                @endforeach
             </video>
-            <a href="https://rutube.ru/video/e0074ea9c0132c75168f9938b3709d48/?r=wd" target="_blank"><span>{{ trans('content.look_at') }}</span><img src="{{ asset('images/ru_tube.png') }}" /></a>
+            <a href="{!! $vhref !!}" target="_blank"><span>{{ trans('content.look_at') }}</span><img src="{{ asset('images/ru_tube.png') }}" /></a>
         </div>
-{{--        <div class="d-flex justify-content-center align-items-center">--}}
-
-{{--        </div>--}}
-{{--        <img class="wow animate__animated animate__fadeIn" data-wow-delay="0.5s" id="main-image" src="{{ asset('images/battery.png') }}" />--}}
     </div>
 
     <x-section wow_delay=".1" data-scroll-destination="{{ Str::slug($content[0]->head) }}" head="{{ $content[0]->head }}">

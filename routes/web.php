@@ -40,6 +40,13 @@ Route::prefix('admin')->middleware(['auth'])->controller(AdminController::class)
     Route::get('/settings', 'settings')->name('settings');
     Route::post('/edit-settings', 'editSettings')->name('edit_settings');
 
+
+    Route::get('/videos/{slug?}', 'videos')->name('videos');
+    Route::post('/edit-video', 'editVideo')->name('edit_video');
+    Route::post('/edit-video-poster', 'editVideoPoster')->name('edit_video_poster');
+    Route::post('/edit-video-href', 'editVideoHref')->name('edit_video_href');
+    Route::post('/delete-video', 'deleteVideo')->name('delete_video');
+
     Route::get('/icons/{slug?}', 'icons')->name('icons');
     Route::post('/edit-icon', 'editIcon')->name('edit_icon');
     Route::post('/delete-icon', 'deleteIcon')->name('delete_icon');
