@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Contact;
+use App\Models\Metric;
 use App\Models\News;
 use App\Models\Question;
 use App\Models\Setting;
@@ -23,6 +24,7 @@ class StaticController extends Controller
         $this->data['content'] = Content::all();
         $this->data['contacts'] = Contact::all();
         $this->data['faq'] = Question::where('active',1)->get();
+        $this->data['metrics'] = Metric::where('active',1)->get();
         return $this->showView('home');
     }
 

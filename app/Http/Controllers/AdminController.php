@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\Content;
+use App\Models\Metric;
 use Illuminate\View\View;
 
 //use Illuminate\Support\Str;
@@ -82,6 +83,13 @@ class AdminController extends Controller
                 'name' => trans('admin_menu.contacts'),
                 'description' => trans('admin_menu.contacts_description'),
                 'icon' => 'icon-map',
+            ],
+            'metrics' => [
+                'id' => 'metrics',
+                'href' => 'admin.metrics',
+                'name' => trans('admin_menu.metrics'),
+                'description' => trans('admin_menu.metrics_description'),
+                'icon' => 'icon-code',
             ],
         ];
         $this->breadcrumbs[] = $this->menu['home'];
@@ -333,6 +341,36 @@ class AdminController extends Controller
     public function deleteContact(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Contact());
+    }
+
+    public function metrics(Request $request, $slug=null): View
+    {
+        return $this->getSomething(
+            $request,
+            new Metric(),
+            'metrics',
+            'metrics',
+            'admin.edit_metric',
+            'admin.adding_metric',
+            'metrics',
+            'metric',
+            $slug
+        );
+    }
+
+    public function editMetric(Request $request): RedirectResponse
+    {
+        $this->editSomething (
+            $request,
+            new Metric(),
+            ['name' => $this->validationString, 'code' => $this->validationText]
+        );
+        return redirect(route('admin.metrics'));
+    }
+
+    public function deleteMetric(Request $request): JsonResponse
+    {
+        return $this->deleteSomething($request, new Metric());
     }
 
     private function getSomething (
