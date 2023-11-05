@@ -135,6 +135,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editUser(Request $request): RedirectResponse
     {
         $validationArr = ['email' => 'required|email|unique:users,email'];
@@ -169,6 +172,9 @@ class AdminController extends Controller
         return $this->showView('settings');
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editSettings(Request $request): RedirectResponse
     {
         $validationArr = ['title' => $this->validationString];
@@ -201,6 +207,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editVideoHref(Request $request): RedirectResponse
     {
         $this->validate($request, ['href' => $this->validationString]);
@@ -209,6 +218,9 @@ class AdminController extends Controller
         return redirect(route('admin.videos'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editVideoPoster(Request $request): RedirectResponse
     {
         $this->validate($request, ['poster' => 'required|'.$this->validationJpg]);
@@ -217,6 +229,9 @@ class AdminController extends Controller
         return redirect(route('admin.videos'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editVideo(Request $request): RedirectResponse
     {
         $this->validate($request, ['video' => 'required|mimes:mp4,ogg,webm']);
@@ -227,6 +242,9 @@ class AdminController extends Controller
         return redirect(route('admin.videos'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function deleteVideo(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Video());
@@ -247,6 +265,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editIcon(Request $request): RedirectResponse
     {
         $icon = $this->editSomething (
@@ -261,6 +282,9 @@ class AdminController extends Controller
         return redirect(route('admin.icons'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function deleteIcon(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Icon());
@@ -281,6 +305,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editNews(Request $request): RedirectResponse
     {
         $news = $this->editSomething (
@@ -297,6 +324,9 @@ class AdminController extends Controller
         return redirect(route('admin.news'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function deleteNews(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new News());
@@ -315,15 +345,27 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editContent(Request $request): RedirectResponse
     {
+        $validationArr = [];
+        for ($i=0;$i<3;$i++) {
+            if ($request->has('preview'.$i)) $validationArr['preview'.$i] = $this->validationJpgAndPng;
+            if ($request->has('full'.$i)) $validationArr['full'.$i] = $this->validationJpgAndPng;
+        }
+
         $content = $this->editSomething (
             $request,
             new Content(),
-            [
-                'head' => $this->validationString,
-                'text' => $this->validationText
-            ]
+            array_merge(
+                $validationArr,
+                [
+                    'head' => $this->validationString,
+                    'text' => $this->validationText
+                ]
+            )
         );
         for ($i=0;$i<count($content->images);$i++) {
             $this->processingFile($request,'preview'.$i, 'images/contents/', pathinfo($content->images[$i]->preview)['basename']);
@@ -334,7 +376,7 @@ class AdminController extends Controller
 
     public function faq(Request $request, $slug=null): View
     {
-        return $this->getSomething(
+        return $this->getSomething (
             $request,
             new Question(),
             'faq',
@@ -347,6 +389,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editFaq(Request $request): RedirectResponse
     {
         $this->editSomething (
@@ -380,6 +425,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editContact(Request $request): RedirectResponse
     {
         $this->editSomething (
@@ -413,6 +461,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editMetric(Request $request): RedirectResponse
     {
         $this->editSomething (
@@ -467,6 +518,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function editSomething (
         Request $request,
         Model $model,
@@ -501,6 +555,9 @@ class AdminController extends Controller
         return $table;
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function deleteSomething(Request $request, Model $model): JsonResponse
     {
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);

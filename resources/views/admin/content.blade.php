@@ -16,12 +16,14 @@
                                 'preview' => asset($image->preview),
                                 'full' => asset($image->preview)
                             ])
-                            @include('admin.blocks._input_image_block',[
-                                'head' => trans('admin.full'),
-                                'name' => 'full'.$k,
-                                'preview' => asset($image->full),
-                                'full' => asset($image->full)
-                            ])
+                            @if ($data['content']->id == 2)
+                                @include('admin.blocks._input_image_block',[
+                                    'head' => trans('admin.full'),
+                                    'name' => 'full'.$k,
+                                    'preview' => asset($image->full),
+                                    'full' => asset($image->full)
+                                ])
+                            @endif
                         </div>
                     @endforeach
                 </div>
