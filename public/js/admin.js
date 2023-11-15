@@ -82,7 +82,8 @@ $(document).ready(function () {
     // Click YES on delete modal
     $('.delete-yes').click(function () {
         $('#'+localStorage.getItem('delete_modal')).modal('hide');
-        $.post('/admin/'+localStorage.getItem('delete_function'), {
+        // console.log(localStorage.getItem('delete_function'));
+        $.post(localStorage.getItem('delete_function'), {
             '_token': window.token,
             'id': localStorage.getItem('delete_id'),
         }, function (data) {
