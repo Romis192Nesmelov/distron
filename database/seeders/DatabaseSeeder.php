@@ -16,10 +16,12 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(SettingsSeeder::class);
+        $this->call(VideosSeeder::class);
         $this->call(IconsSeeder::class);
         $this->call(NewsSeeder::class);
         $this->call(ContentsSeeder::class);
         $this->call(QuestionsSeeder::class);
         $this->call(ContactsSeeder::class);
+        $this->call(MetricsSeeder::class);
     }
 }

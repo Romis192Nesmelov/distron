@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Contact;
+use App\Models\Metric;
 use App\Models\News;
 use App\Models\Question;
 use App\Models\Setting;
 use App\Models\Content;
 use App\Models\Icon;
+use App\Models\Video;
 use Illuminate\Support\Str;
 //use Illuminate\Http\Request;
 
@@ -18,11 +20,14 @@ class StaticController extends Controller
 
     public function index()
     {
+        $this->data['video'] = Video::all();
+        $this->data['vhref'] = $this->getVideoHref();
         $this->data['icons'] = Icon::where('active',1)->get();
         $this->data['news'] = News::where('active',1)->orderBy('time','desc')->get();
         $this->data['content'] = Content::all();
         $this->data['contacts'] = Contact::all();
         $this->data['faq'] = Question::where('active',1)->get();
+        $this->data['metrics'] = Metric::where('active',1)->get();
         return $this->showView('home');
     }
 

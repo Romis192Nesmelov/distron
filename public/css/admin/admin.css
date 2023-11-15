@@ -10,12 +10,18 @@ td.image {
     width: 10%;
 }
 
+td.video {
+    width: 25%;
+}
+
 td.head {
     width: 15%;
     font-weight: bold;
     font-size: 15px;
 }
 
+.video video,
+td.video video,
 td.image img,
 .edit-image-preview img,
 .main-image img {
@@ -52,6 +58,7 @@ td.value .percents {
 
 .table-items td.delete > span {
     cursor: pointer;
+    color: #1E88E5;
 }
 
 .form-horizontal .form-group {

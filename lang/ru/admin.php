@@ -84,4 +84,22 @@ return [
     'contact' => 'Контакт',
     'map' => 'Карта',
     'do_you_really_want_delete_this_contact' => 'Вы действительно хотите удалить этот контакт?',
+
+    'metric_name' => 'Название метрики',
+    'edit_metric' => 'Редактирование метрики',
+    'add_metric' => 'Добавить метрику',
+    'adding_metric' => 'Добавление метрики',
+    'metric' => 'Метрика',
+    'metric_status' => 'Статус метрики',
+    'metric_code' => 'Код метрики',
+    'metric_is_active' => 'Метрика активна',
+    'metric_not_active' => 'Метрика не активна',
+    'do_you_really_want_delete_this_metric' => 'Вы действительно хотите удалить эту метрику?',
+
+    'video_poster' => 'Видео постер',
+    'video_href' => 'Ссылка на видео',
+    'edit_video' => 'Редактирование видео',
+    'add_video' => 'Добавить видео',
+    'adding_video' => 'Добавление видео',
+    'do_you_really_want_delete_this_video' => 'Вы действительно хотите удалить это видео?',
 ];

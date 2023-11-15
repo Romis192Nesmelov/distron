@@ -110,5 +110,10 @@
 </footer>
 
 <div id="on-top-button" data-scroll="home"><i class="icon-arrow-up12"></i></div>
+
+@foreach ($metrics as $metric)
+    {!! $metric->code !!}
+@endforeach
+
 </body>
 </html>

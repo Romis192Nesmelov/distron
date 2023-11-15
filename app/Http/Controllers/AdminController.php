@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Setting;
 use App\Models\Content;
+use App\Models\Metric;
+use App\Models\Video;
 use Illuminate\View\View;
 
 //use Illuminate\Support\Str;
@@ -46,6 +48,13 @@ class AdminController extends Controller
                 'href' => 'admin.settings',
                 'name' => trans('admin_menu.settings'),
                 'description' => trans('admin_menu.settings_description'),
+                'icon' => 'icon-gear',
+            ],
+            'videos' => [
+                'id' => 'videos',
+                'href' => 'admin.videos',
+                'name' => trans('admin_menu.video'),
+                'description' => trans('admin_menu.video_description'),
                 'icon' => 'icon-gear',
             ],
             'icons' => [
@@ -83,6 +92,13 @@ class AdminController extends Controller
                 'description' => trans('admin_menu.contacts_description'),
                 'icon' => 'icon-map',
             ],
+            'metrics' => [
+                'id' => 'metrics',
+                'href' => 'admin.metrics',
+                'name' => trans('admin_menu.metrics'),
+                'description' => trans('admin_menu.metrics_description'),
+                'icon' => 'icon-code',
+            ],
         ];
         $this->breadcrumbs[] = $this->menu['home'];
     }
@@ -119,6 +135,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editUser(Request $request): RedirectResponse
     {
         $validationArr = ['email' => 'required|email|unique:users,email'];
@@ -153,6 +172,9 @@ class AdminController extends Controller
         return $this->showView('settings');
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editSettings(Request $request): RedirectResponse
     {
         $validationArr = ['title' => $this->validationString];
@@ -167,6 +189,65 @@ class AdminController extends Controller
         $settings->update($fields);
         $this->saveCompleteMessage();
         return redirect(route('admin.settings'));
+    }
+
+    public function videos(Request $request, $slug=null): View
+    {
+        $this->data['video_href'] = $this->getVideoHref();
+        return $this->getSomething(
+            $request,
+            new Video(),
+            'videos',
+            'videos',
+            'admin.edit_video',
+            'admin.adding_video',
+            'videos',
+            'video',
+            $slug
+        );
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function editVideoHref(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['href' => $this->validationString]);
+        file_put_contents(base_path('public/video_href'), $request->href);
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function editVideoPoster(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['poster' => 'required|'.$this->validationJpg]);
+        $this->processingFile($request,'poster', 'images/', 'distron.jpg');
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function editVideo(Request $request): RedirectResponse
+    {
+        $this->validate($request, ['video' => 'required|mimes:mp4,ogg,webm']);
+        $newFileName = 'distron.'.$request->file('video')->getClientOriginalExtension();
+        if (!file_exists(base_path('public/video/'.$newFileName))) Video::create(['path' => 'video/'.$newFileName]);
+        $this->processingFile($request,'video', 'video/', $newFileName);
+        $this->saveCompleteMessage();
+        return redirect(route('admin.videos'));
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function deleteVideo(Request $request): JsonResponse
+    {
+        return $this->deleteSomething($request, new Video());
     }
 
     public function icons(Request $request, $slug=null): View
@@ -184,6 +265,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editIcon(Request $request): RedirectResponse
     {
         $icon = $this->editSomething (
@@ -198,6 +282,9 @@ class AdminController extends Controller
         return redirect(route('admin.icons'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function deleteIcon(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Icon());
@@ -218,6 +305,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editNews(Request $request): RedirectResponse
     {
         $news = $this->editSomething (
@@ -234,6 +324,9 @@ class AdminController extends Controller
         return redirect(route('admin.news'));
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function deleteNews(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new News());
@@ -252,15 +345,27 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editContent(Request $request): RedirectResponse
     {
+        $validationArr = [];
+        for ($i=0;$i<3;$i++) {
+            if ($request->has('preview'.$i)) $validationArr['preview'.$i] = $this->validationJpgAndPng;
+            if ($request->has('full'.$i)) $validationArr['full'.$i] = $this->validationJpgAndPng;
+        }
+
         $content = $this->editSomething (
             $request,
             new Content(),
-            [
-                'head' => $this->validationString,
-                'text' => $this->validationText
-            ]
+            array_merge(
+                $validationArr,
+                [
+                    'head' => $this->validationString,
+                    'text' => $this->validationText
+                ]
+            )
         );
         for ($i=0;$i<count($content->images);$i++) {
             $this->processingFile($request,'preview'.$i, 'images/contents/', pathinfo($content->images[$i]->preview)['basename']);
@@ -271,7 +376,7 @@ class AdminController extends Controller
 
     public function faq(Request $request, $slug=null): View
     {
-        return $this->getSomething(
+        return $this->getSomething (
             $request,
             new Question(),
             'faq',
@@ -284,6 +389,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editFaq(Request $request): RedirectResponse
     {
         $this->editSomething (
@@ -317,6 +425,9 @@ class AdminController extends Controller
         );
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function editContact(Request $request): RedirectResponse
     {
         $this->editSomething (
@@ -333,6 +444,39 @@ class AdminController extends Controller
     public function deleteContact(Request $request): JsonResponse
     {
         return $this->deleteSomething($request, new Contact());
+    }
+
+    public function metrics(Request $request, $slug=null): View
+    {
+        return $this->getSomething(
+            $request,
+            new Metric(),
+            'metrics',
+            'metrics',
+            'admin.edit_metric',
+            'admin.adding_metric',
+            'metrics',
+            'metric',
+            $slug
+        );
+    }
+
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function editMetric(Request $request): RedirectResponse
+    {
+        $this->editSomething (
+            $request,
+            new Metric(),
+            ['name' => $this->validationString, 'code' => $this->validationText]
+        );
+        return redirect(route('admin.metrics'));
+    }
+
+    public function deleteMetric(Request $request): JsonResponse
+    {
+        return $this->deleteSomething($request, new Metric());
     }
 
     private function getSomething (
@@ -374,6 +518,9 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function editSomething (
         Request $request,
         Model $model,
@@ -408,6 +555,9 @@ class AdminController extends Controller
         return $table;
     }
 
+    /**
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function deleteSomething(Request $request, Model $model): JsonResponse
     {
         $this->validate($request, ['id' => 'required|integer|exists:'.$model->getTable().',id']);
@@ -419,6 +569,8 @@ class AdminController extends Controller
             unlink(base_path('public/images/news/news' . $table->id . '.jpg'));
         } elseif (isset($table->image) && $model->image && file_exists(base_path('public/'.$model->image))) {
             unlink(base_path('public/'.$model->image));
+        } elseif (isset($table->path) && $model->path && file_exists(base_path('public/'.$model->path))) {
+            unlink(base_path('public/'.$model->path));
         } elseif (isset($table->images)) {
             foreach ($table->images as $image) {
                 if (file_exists(base_path('public/'.$image->preview))) unlink(base_path('public/'.$image->preview));
