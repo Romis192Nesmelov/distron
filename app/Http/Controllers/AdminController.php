@@ -578,7 +578,7 @@ class AdminController extends Controller
             }
         }
 
-//        $table->delete();
+        $table->delete();
         return response()->json(['success' => true]);
     }
 
